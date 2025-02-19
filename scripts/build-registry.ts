@@ -9,19 +9,20 @@ if (!fs.existsSync(registryDir)) {
   fs.mkdirSync(registryDir, { recursive: true });
 }
 
+// Generate individual component JSON files
 for (const component of components) {
   const content = fs.readFileSync(component.path, "utf8");
   const schema: Schema = {
+    style: "default",
     name: component.name,
-    type: "components:ui",
+    type: "registry:ui",
     registryDependencies: component.registryDependencies || [],
     dependencies: component.dependencies || [],
-    devDependencies: component.devDependencies || [],
     files: [
       {
         name: path.basename(component.path),
         content,
-        type: "components:ui",
+        type: "registry:ui",
       },
     ],
   };

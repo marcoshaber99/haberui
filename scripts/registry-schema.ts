@@ -1,4 +1,4 @@
-export type RegistryType = "components:ui";
+export type RegistryType = "registry:ui";
 
 export interface RegistryFile {
   name: string;
@@ -6,22 +6,11 @@ export interface RegistryFile {
   type: RegistryType;
 }
 
-export interface TailwindConfig {
-  config?: Record<string, object>;
-}
-
-export interface CssVars {
-  light: Record<string, string>;
-  dark: Record<string, string>;
-}
-
 export interface Schema {
+  style: string;
   name: string;
   type: RegistryType;
-  registryDependencies?: string[];
-  dependencies?: string[];
-  devDependencies?: string[];
-  tailwind?: TailwindConfig;
-  cssVars?: CssVars;
   files: RegistryFile[];
+  dependencies?: string[];
+  registryDependencies?: string[];
 }
