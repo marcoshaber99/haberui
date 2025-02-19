@@ -72,7 +72,7 @@ export default function Example() {
         </h2>
         <pre className="rounded-lg bg-zinc-900/50 p-4 text-zinc-400">
           npx shadcn@latest add
-          --from=https://your-vercel-deployment-url.vercel.app/registry{" "}
+          --from=https://your-vercel-deployment-url.vercel.app/h{" "}
           {slug.join("-").toLowerCase()}
         </pre>
       </div>

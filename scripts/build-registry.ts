@@ -3,7 +3,7 @@ import path from "path";
 import type { Schema } from "./registry-schema";
 import { components } from "./registry-components";
 
-const registryDir = path.join(__dirname, "../public/registry");
+const registryDir = path.join(__dirname, "../public/h");
 
 if (!fs.existsSync(registryDir)) {
   fs.mkdirSync(registryDir, { recursive: true });

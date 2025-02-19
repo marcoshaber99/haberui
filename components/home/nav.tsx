@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { Github } from "lucide-react";
 
 export function Nav() {
@@ -8,7 +9,11 @@ export function Nav() {
     <div className="fixed left-0 right-0 top-0 z-50 px-4 py-4">
       <div className="mx-auto max-w-fit">
         <div className="flex items-center gap-6 rounded-full border-2 bg-background/75 px-6 py-2 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-          <Link href="/" className="text-sm font-semibold">
+          <Link
+            href="/"
+            className="flex items-center gap-2 text-sm font-semibold"
+          >
+            <Image src="/logo.svg" alt="Logo" width={10} height={14} />
             haber-ui
           </Link>
           <p className="text-muted-foreground transition-colors hover:text-foreground text-sm">

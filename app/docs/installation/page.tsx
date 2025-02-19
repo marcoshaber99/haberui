@@ -54,13 +54,13 @@ export default function InstallationPage() {
                 <TabsTrigger value="yarn">yarn</TabsTrigger>
               </TabsList>
               <TabsContent value="npm">
-                <CommandBox command="npx shadcn@latest add --from=https://your-vercel-deployment-url.vercel.app/registry haber-button" />
+                <CommandBox command="npx shadcn@latest add --from=https://your-vercel-deployment-url.vercel.app/h haber-button" />
               </TabsContent>
               <TabsContent value="pnpm">
-                <CommandBox command="pnpm dlx shadcn@latest add --from=https://your-vercel-deployment-url.vercel.app/registry haber-button" />
+                <CommandBox command="pnpm dlx shadcn@latest add --from=https://your-vercel-deployment-url.vercel.app/h haber-button" />
               </TabsContent>
               <TabsContent value="yarn">
-                <CommandBox command="yarn dlx shadcn-ui@latest add --from=https://your-vercel-deployment-url.vercel.app/registry haber-button" />
+                <CommandBox command="yarn dlx shadcn-ui@latest add --from=https://your-vercel-deployment-url.vercel.app/h haber-button" />
               </TabsContent>
             </Tabs>
           </li>

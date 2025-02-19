@@ -1,8 +1,8 @@
 "use client";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { GalleryVerticalEnd } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
+import Image from "next/image";
 import {
   Sheet,
   SheetContent,
@@ -58,7 +58,7 @@ function NavigationContent({ pathname }: { pathname: string }) {
             <SidebarMenuButton size="lg" asChild>
               <Link href="/">
                 <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground">
-                  <GalleryVerticalEnd className="size-4" />
+                  <Image src="/logo.svg" alt="Logo" width={13} height={18} />
                 </div>
                 <div className="flex flex-col gap-0.5 leading-none">
                   <span className="font-semibold">haber-ui</span>
