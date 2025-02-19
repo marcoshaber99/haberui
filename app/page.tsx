@@ -1,11 +1,15 @@
 import { Nav } from "@/components/home/nav";
 import { Hero } from "@/components/home/hero";
+import { Footer } from "@/components/home/footer";
 
 export default function Home() {
   return (
-    <div className="relative min-h-screen bg-gradient-to-b from-background to-background/80">
+    <div className="flex min-h-screen flex-col">
       <Nav />
-      <Hero />
+      <main className="flex-1 flex items-center justify-center w-full">
+        <Hero />
+      </main>
+      <Footer />
     </div>
   );
 }

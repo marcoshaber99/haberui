@@ -4,7 +4,7 @@ import { HaberButton } from "@/components/haber-button";
 
 export function Hero() {
   return (
-    <section className="flex min-h-screen flex-col items-center justify-center px-4">
+    <section className="w-full flex flex-col items-center justify-center py-24 px-4">
       <div className="relative flex flex-col items-center gap-4 text-center">
         <div className="space-y-6">
           <h1 className="mx-auto max-w-[800px] bg-gradient-to-b from-foreground to-foreground/80 bg-clip-text text-center text-5xl font-bold tracking-tight text-transparent md:text-6xl lg:text-7xl">

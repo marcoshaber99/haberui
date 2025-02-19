@@ -1,28 +1,20 @@
+"use client";
+
 import Link from "next/link";
 import { Github } from "lucide-react";
-import { ModeToggle } from "@/components/mode-toggle";
 
 export function Nav() {
   return (
-    <div className="fixed left-1/2 top-6 z-50 -translate-x-1/2">
-      <div className="flex items-center gap-6 rounded-full border bg-background/95 px-6 py-2 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-        <Link href="/" className="text-sm font-semibold">
-          haber-ui
-        </Link>
-        <nav className="flex items-center gap-6">
-          <Link
-            href="/docs"
-            className="text-sm text-muted-foreground transition-colors hover:text-foreground"
-          >
-            Documentation
+    <div className="fixed left-0 right-0 top-0 z-50 px-4 py-4">
+      <div className="mx-auto max-w-fit">
+        <div className="flex items-center gap-6 rounded-full border-2 bg-background/75 px-6 py-2 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+          <Link href="/" className="text-sm font-semibold">
+            haber-ui
           </Link>
-          <Link
-            href="/components"
-            className="text-sm text-muted-foreground transition-colors hover:text-foreground"
-          >
-            Components
-          </Link>
-          <div className="flex items-center gap-4 pl-4">
+          <p className="text-muted-foreground transition-colors hover:text-foreground text-sm">
+            <Link href="/docs">Docs</Link>
+          </p>
+          <div className="flex items-center gap-4">
             <a
               href="https://github.com/marcoshaber99/haberui"
               target="_blank"
@@ -31,9 +23,8 @@ export function Nav() {
             >
               <Github className="h-5 w-5" />
             </a>
-            <ModeToggle />
           </div>
-        </nav>
+        </div>
       </div>
     </div>
   );
