@@ -1,10 +1,18 @@
 import path from "path";
+import type { Schema } from "./registry-schema";
 
-type ComponentDefinition = {
+type ComponentDefinition = Partial<
+  Pick<
+    Schema,
+    | "dependencies"
+    | "devDependencies"
+    | "registryDependencies"
+    | "cssVars"
+    | "tailwind"
+  >
+> & {
   name: string;
   path: string;
-  dependencies?: string[];
-  registryDependencies?: string[];
 };
 
 export const components: ComponentDefinition[] = [
@@ -13,5 +21,6 @@ export const components: ComponentDefinition[] = [
     path: path.join(__dirname, "../components/haber-ui/haber-button.tsx"),
     registryDependencies: ["button"],
     dependencies: ["class-variance-authority"],
+    devDependencies: [],
   },
 ];

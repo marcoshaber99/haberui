@@ -6,26 +6,31 @@ import { components } from "./registry-components";
 const registryDir = path.join(__dirname, "../public/h");
 
 if (!fs.existsSync(registryDir)) {
-  fs.mkdirSync(registryDir, { recursive: true });
+  fs.mkdirSync(registryDir);
 }
 
-// Generate individual component JSON files
 for (const component of components) {
   const content = fs.readFileSync(component.path, "utf8");
-  const schema: Schema = {
-    style: "default",
+  const schema = {
     name: component.name,
     type: "registry:ui",
     registryDependencies: component.registryDependencies || [],
     dependencies: component.dependencies || [],
+    devDependencies: component.devDependencies || [],
+    tailwind: {},
+    cssVars: {
+      light: {},
+      dark: {},
+    },
     files: [
       {
-        name: path.basename(component.path),
+        path: `${component.name}.tsx`,
         content,
         type: "registry:ui",
       },
     ],
-  };
+  } satisfies Schema;
+
   fs.writeFileSync(
     path.join(registryDir, `${component.name}.json`),
     JSON.stringify(schema, null, 2)
