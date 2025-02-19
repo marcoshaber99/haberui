@@ -24,11 +24,11 @@ interface DocsLayoutProps {
 export default function DocsLayout({ children }: DocsLayoutProps) {
   return (
     <SidebarProvider>
-      <div className="relative flex min-h-screen">
+      <div className="relative flex min-h-screen overflow-hidden">
         <DocsSidebar />
-        <SidebarInset className="flex w-full flex-col">
+        <SidebarInset className="flex min-w-0 w-full flex-col">
           <header className="sticky top-0 z-50 flex h-16 shrink-0 items-center gap-2 border-b bg-background/80 backdrop-blur">
-            <div className="flex items-center gap-2 px-6">
+            <div className="flex items-center gap-2 px-4 sm:px-6">
               <SidebarTrigger />
               <Separator orientation="vertical" className="mr-2 h-4" />
               <Breadcrumb>
@@ -43,7 +43,7 @@ export default function DocsLayout({ children }: DocsLayoutProps) {
                   </BreadcrumbItem>
                   <BreadcrumbSeparator className="hidden md:block text-muted-foreground/50" />
                   <BreadcrumbItem>
-                    <BreadcrumbPage className="text-foreground">
+                    <BreadcrumbPage className="text-foreground truncate">
                       Components
                     </BreadcrumbPage>
                   </BreadcrumbItem>
@@ -51,8 +51,10 @@ export default function DocsLayout({ children }: DocsLayoutProps) {
               </Breadcrumb>
             </div>
           </header>
-          <main className="flex-1 p-6">
-            <div className="mx-auto max-w-4xl">{children}</div>
+          <main className="flex-1 overflow-auto">
+            <div className="container mx-auto px-4 sm:px-6 py-6 max-w-[90rem]">
+              <div className="mx-auto w-full max-w-4xl pl-6">{children}</div>
+            </div>
           </main>
         </SidebarInset>
       </div>

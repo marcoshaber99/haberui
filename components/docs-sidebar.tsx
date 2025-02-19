@@ -146,7 +146,7 @@ export function DocsSidebar() {
   return (
     <>
       {/* Desktop Sidebar */}
-      <Sidebar className="hidden md:flex">
+      <Sidebar className="hidden md:flex md:w-[280px] shrink-0">
         <NavigationContent pathname={pathname} />
       </Sidebar>
 
@@ -155,7 +155,7 @@ export function DocsSidebar() {
         <SheetTrigger className="md:hidden">
           <span className="sr-only">Open navigation menu</span>
         </SheetTrigger>
-        <SheetContent side="left" className="w-[300px] p-0">
+        <SheetContent side="left" className="w-[280px] p-0 overflow-y-auto">
           <SheetTitle className="sr-only">Navigation menu</SheetTitle>
           <NavigationContent pathname={pathname} />
         </SheetContent>

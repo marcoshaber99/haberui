@@ -24,8 +24,8 @@ export function CommandBox({ command, className, ...props }: CommandBoxProps) {
       className={cn("relative rounded-md bg-muted p-4", className)}
       {...props}
     >
-      <pre className="text-sm font-mono">
-        <code>{command}</code>
+      <pre className="text-sm font-mono overflow-x-auto whitespace-pre scrollbar-thin scrollbar-thumb-muted-foreground/20 scrollbar-track-transparent">
+        <code className="inline-block">{command}</code>
       </pre>
       <Button
         variant="ghost"
