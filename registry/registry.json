@@ -1,0 +1,13 @@
+{
+  "name": "haber-ui",
+  "version": "0.1.0",
+  "description": "A custom component library built on top of shadcn/ui",
+  "components": [
+    {
+      "name": "haber-button",
+      "type": "components:ui",
+      "registryDependencies": ["button"],
+      "files": ["components/haber-button.tsx"]
+    }
+  ]
+}

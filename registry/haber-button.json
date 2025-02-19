@@ -1,0 +1,13 @@
+{
+  "name": "haber-button",
+  "type": "components:ui",
+  "registryDependencies": [
+    "button"
+  ],
+  "files": [
+    {
+      "name": "haber-button.tsx",
+      "content": "import * as React from \"react\";\nimport { cva, type VariantProps } from \"class-variance-authority\";\n\nimport { cn } from \"@/lib/utils\";\nimport { Button } from \"@/components/ui/button\";\n\nconst haberButtonVariants = cva(\n  \"inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none ring-offset-background\",\n  {\n    variants: {\n      variant: {\n        default: \"bg-primary text-primary-foreground hover:bg-primary/90\",\n        destructive:\n          \"bg-destructive text-destructive-foreground hover:bg-destructive/90\",\n        outline:\n          \"border border-input hover:bg-accent hover:text-accent-foreground\",\n        secondary:\n          \"bg-secondary text-secondary-foreground hover:bg-secondary/80\",\n        ghost: \"hover:bg-accent hover:text-accent-foreground\",\n        link: \"underline-offset-4 hover:underline text-primary\",\n        gradient:\n          \"bg-gradient-to-r from-blue-500 to-purple-500 text-white hover:from-blue-600 hover:to-purple-600\",\n      },\n      size: {\n        default: \"h-10 py-2 px-4\",\n        sm: \"h-9 px-3 rounded-md\",\n        lg: \"h-11 px-8 rounded-md\",\n        icon: \"h-10 w-10\",\n      },\n    },\n    defaultVariants: {\n      variant: \"default\",\n      size: \"default\",\n    },\n  }\n);\n\nexport interface HaberButtonProps\n  extends React.ButtonHTMLAttributes<HTMLButtonElement>,\n    VariantProps<typeof haberButtonVariants> {\n  asChild?: boolean;\n}\n\nconst HaberButton = React.forwardRef<HTMLButtonElement, HaberButtonProps>(\n  ({ className, variant, size, asChild = false, ...props }, ref) => {\n    return (\n      <Button\n        className={cn(haberButtonVariants({ variant, size, className }))}\n        asChild={asChild}\n        ref={ref}\n        {...props}\n      />\n    );\n  }\n);\nHaberButton.displayName = \"HaberButton\";\n\nexport { HaberButton, haberButtonVariants };\n"
+    }
+  ]
+}
