@@ -16,44 +16,81 @@ import {
   SidebarProvider,
   SidebarTrigger,
 } from "@/components/ui/sidebar";
+import { usePathname } from "next/navigation";
 
 interface DocsLayoutProps {
   children: React.ReactNode;
 }
 
 export default function DocsLayout({ children }: DocsLayoutProps) {
+  const pathname = usePathname();
+  const segments = pathname.split("/").filter(Boolean);
+
+  const getBreadcrumbItems = () => {
+    const items: React.ReactNode[] = [];
+    let path = "";
+
+    segments.forEach((segment, index) => {
+      path += `/${segment}`;
+      const isLast = index === segments.length - 1;
+      const title =
+        segment === "docs"
+          ? "Docs"
+          : segment === "components"
+          ? "Components"
+          : segment
+              .split("-")
+              .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+              .join(" ");
+
+      if (isLast) {
+        items.push(
+          <BreadcrumbItem key={path}>
+            <BreadcrumbPage className="text-foreground truncate">
+              {title}
+            </BreadcrumbPage>
+          </BreadcrumbItem>
+        );
+      } else {
+        items.push(
+          <BreadcrumbItem key={path} className="hidden md:block">
+            <BreadcrumbLink
+              href={path}
+              className="text-muted-foreground hover:text-foreground"
+            >
+              {title}
+            </BreadcrumbLink>
+          </BreadcrumbItem>
+        );
+        items.push(
+          <BreadcrumbSeparator
+            key={`${path}-separator`}
+            className="hidden md:block text-muted-foreground/50"
+          />
+        );
+      }
+    });
+
+    return items;
+  };
+
   return (
     <SidebarProvider>
       <div className="relative flex min-h-screen overflow-hidden">
         <DocsSidebar />
-        <SidebarInset className="flex min-w-0 w-full flex-col">
-          <header className="sticky top-0 z-50 flex h-16 shrink-0 items-center gap-2 border-b bg-background/80 backdrop-blur">
-            <div className="flex items-center gap-2 px-4 sm:px-6">
+        <SidebarInset className="flex min-w-0 w-full flex-col pt-4">
+          <header className="sticky top-0 z-50 flex h-[60px] shrink-0 items-center gap-2 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+            <div className="container flex h-full max-w-screen-2xl items-center gap-2 px-8 md:px-16">
               <SidebarTrigger />
-              <Separator orientation="vertical" className="mr-2 h-4" />
+              <Separator orientation="vertical" className="mx-2 h-5" />
               <Breadcrumb>
-                <BreadcrumbList>
-                  <BreadcrumbItem className="hidden md:block">
-                    <BreadcrumbLink
-                      href="/docs"
-                      className="text-muted-foreground hover:text-foreground"
-                    >
-                      Docs
-                    </BreadcrumbLink>
-                  </BreadcrumbItem>
-                  <BreadcrumbSeparator className="hidden md:block text-muted-foreground/50" />
-                  <BreadcrumbItem>
-                    <BreadcrumbPage className="text-foreground truncate">
-                      Components
-                    </BreadcrumbPage>
-                  </BreadcrumbItem>
-                </BreadcrumbList>
+                <BreadcrumbList>{getBreadcrumbItems()}</BreadcrumbList>
               </Breadcrumb>
             </div>
           </header>
-          <main className="flex-1 overflow-auto">
-            <div className="container mx-auto px-4 sm:px-6 py-6 max-w-[90rem]">
-              <div className="mx-auto w-full max-w-4xl pl-6">{children}</div>
+          <main className="flex-1">
+            <div className="container relative max-w-screen-2xl px-8 py-12">
+              <div className="mx-auto w-full max-w-4xl md:pl-8">{children}</div>
             </div>
           </main>
         </SidebarInset>

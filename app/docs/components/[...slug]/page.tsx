@@ -30,7 +30,7 @@ export default async function ComponentPage({ params, searchParams }: Props) {
         </p>
       </div>
 
-      <Tabs defaultValue="preview" className="relative w-full">
+      <Tabs defaultValue="preview" className="relative w-full ">
         <TabsList className="w-full justify-start rounded-none border-b border-zinc-800 bg-transparent p-0">
           <TabsTrigger
             value="preview"

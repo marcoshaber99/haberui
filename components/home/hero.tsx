@@ -17,7 +17,7 @@ export function Hero() {
         </div>
         <div className="mt-6 flex gap-6">
           <Link href="/docs">
-            <HaberButton size="lg" variant="gradient">
+            <HaberButton size="lg" variant="obsidian">
               Browse components
             </HaberButton>
           </Link>
