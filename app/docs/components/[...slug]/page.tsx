@@ -1,19 +1,22 @@
 import { notFound } from "next/navigation";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
-interface ComponentPageProps {
-  params: {
-    slug: Promise<string[]>;
-  };
-}
+type Props = {
+  params: Promise<{ slug: string[] }>;
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+};
 
-export default async function ComponentPage({ params }: ComponentPageProps) {
-  const slug = await params.slug;
-  if (!slug) notFound();
+export default async function ComponentPage({ params, searchParams }: Props) {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [resolvedParams, resolvedSearchParams] = await Promise.all([
+    params,
+    searchParams,
+  ]);
+  if (!resolvedParams.slug || resolvedParams.slug.length === 0) notFound();
 
-  const componentName = slug[slug.length - 1]
+  const componentName = resolvedParams.slug[resolvedParams.slug.length - 1]
     .split("-")
-    .map((word: string) => word.charAt(0).toUpperCase() + word.slice(1))
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
     .join(" ");
 
   return (
@@ -55,7 +58,7 @@ export default async function ComponentPage({ params }: ComponentPageProps) {
           className="rounded-lg border border-zinc-800 bg-zinc-900/50 p-6"
         >
           <pre className="text-sm text-zinc-400">
-            {`import { ${componentName} } from "@/components/ui/${slug
+            {`import { ${componentName} } from "@/components/ui/${resolvedParams.slug
               .join("-")
               .toLowerCase()}"
 
@@ -71,9 +74,9 @@ export default function Example() {
           Installation
         </h2>
         <pre className="rounded-lg bg-zinc-900/50 p-4 text-zinc-400">
-          npx shadcn@latest add
-          --from=https://your-vercel-deployment-url.vercel.app/h{" "}
-          {slug.join("-").toLowerCase()}
+          {`npx shadcn@latest add "https://your-vercel-deployment-url.vercel.app/h/${resolvedParams.slug
+            .join("-")
+            .toLowerCase()}.json"`}
         </pre>
       </div>
     </div>
