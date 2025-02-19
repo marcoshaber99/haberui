@@ -3,6 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { Github } from "lucide-react";
+import { ModeToggle } from "@/components/mode-toggle";
 
 export function Nav() {
   return (
@@ -28,6 +29,7 @@ export function Nav() {
             >
               <Github className="h-5 w-5" />
             </a>
+            <ModeToggle />
           </div>
         </div>
       </div>

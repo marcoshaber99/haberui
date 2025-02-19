@@ -67,7 +67,7 @@ export default function Example() {
         <h2 className="scroll-m-20 text-2xl font-semibold tracking-tight">
           Installation
         </h2>
-        <CommandBox command="npx shadcn@latest add --from=https://your-vercel-deployment-url.vercel.app/h haber-button" />
+        <CommandBox command='npx shadcn@latest add "https://haberui.vercel.app/h/haber-button.json"' />
       </div>
 
       <div className="space-y-4">

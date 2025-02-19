@@ -57,14 +57,16 @@ export default async function ComponentPage({ params, searchParams }: Props) {
           value="code"
           className="rounded-lg border border-zinc-800 bg-zinc-900/50 p-6"
         >
-          <pre className="text-sm text-zinc-400">
-            {`import { ${componentName} } from "@/components/ui/${resolvedParams.slug
-              .join("-")
-              .toLowerCase()}"
+          <pre className="text-sm text-zinc-400 overflow-x-auto">
+            <code className="text-[13px] md:text-sm whitespace-pre-wrap break-words">
+              {`import { ${componentName} } from "@/components/ui/${resolvedParams.slug
+                .join("-")
+                .toLowerCase()}"
 
 export default function Example() {
   return <${componentName} />
 }`}
+            </code>
           </pre>
         </TabsContent>
       </Tabs>
@@ -73,10 +75,12 @@ export default function Example() {
         <h2 className="text-2xl font-semibold tracking-tight text-zinc-50">
           Installation
         </h2>
-        <pre className="rounded-lg bg-zinc-900/50 p-4 text-zinc-400">
-          {`npx shadcn@latest add "https://your-vercel-deployment-url.vercel.app/h/${resolvedParams.slug
-            .join("-")
-            .toLowerCase()}.json"`}
+        <pre className="rounded-lg bg-zinc-900/50 p-4 text-zinc-400 overflow-x-auto">
+          <code className="text-[13px] md:text-sm whitespace-pre-wrap break-words">
+            {`npx shadcn@latest add "https://haberui.vercel.app/h/${resolvedParams.slug
+              .join("-")
+              .toLowerCase()}.json"`}
+          </code>
         </pre>
       </div>
     </div>
