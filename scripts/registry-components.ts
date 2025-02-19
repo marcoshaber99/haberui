@@ -23,4 +23,11 @@ export const components: ComponentDefinition[] = [
     dependencies: ["class-variance-authority"],
     devDependencies: [],
   },
+  {
+    name: "gradient-blob",
+    path: path.join(__dirname, "../components/haber-ui/gradient-blob.tsx"),
+    registryDependencies: [],
+    dependencies: [],
+    devDependencies: [],
+  },
 ];

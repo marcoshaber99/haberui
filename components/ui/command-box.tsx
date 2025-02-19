@@ -21,21 +21,27 @@ export function CommandBox({ command, className, ...props }: CommandBoxProps) {
 
   return (
     <div
-      className={cn("relative rounded-md bg-muted p-4", className)}
+      className={cn("group relative rounded-md bg-muted", className)}
       {...props}
     >
-      <pre className="text-sm font-mono overflow-x-auto whitespace-pre scrollbar-thin scrollbar-thumb-muted-foreground/20 scrollbar-track-transparent">
-        <code className="inline-block">{command}</code>
-      </pre>
-      <Button
-        variant="ghost"
-        size="icon"
-        className="absolute top-2 right-2 h-8 w-8"
-        onClick={copyToClipboard}
-      >
-        {copied ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
-        <span className="sr-only">Copy command</span>
-      </Button>
+      <div className="relative flex items-center">
+        <pre className="overflow-x-auto py-4 pl-4 pr-12 text-sm font-mono scrollbar-thin scrollbar-thumb-muted-foreground/20 scrollbar-track-transparent">
+          <code className="inline-block min-w-full">{command}</code>
+        </pre>
+        <Button
+          variant="ghost"
+          size="icon"
+          className="absolute right-2 h-8 w-8"
+          onClick={copyToClipboard}
+        >
+          {copied ? (
+            <Check className="h-4 w-4" />
+          ) : (
+            <Copy className="h-4 w-4" />
+          )}
+          <span className="sr-only">Copy command</span>
+        </Button>
+      </div>
     </div>
   );
 }

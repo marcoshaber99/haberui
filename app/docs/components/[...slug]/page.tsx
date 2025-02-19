@@ -63,9 +63,9 @@ export default async function ComponentPage({ params, searchParams }: Props) {
                 .join("-")
                 .toLowerCase()}"
 
-export default function Example() {
-  return <${componentName} />
-}`}
+              export default function Example() {
+                return <${componentName} />
+              }`}
             </code>
           </pre>
         </TabsContent>

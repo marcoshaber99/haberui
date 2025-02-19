@@ -76,11 +76,11 @@ export default function DocsLayout({ children }: DocsLayoutProps) {
 
   return (
     <SidebarProvider>
-      <div className="relative flex min-h-screen overflow-hidden">
+      <div className="relative flex min-h-screen overflow-hidden pl-6">
         <DocsSidebar />
         <SidebarInset className="flex min-w-0 w-full flex-col pt-4">
           <header className="sticky top-0 z-50 flex h-[60px] shrink-0 items-center gap-2 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-            <div className="container flex h-full max-w-screen-2xl items-center gap-2 px-8 md:px-16">
+            <div className="flex h-full w-full items-center gap-2 px-4 md:px-8">
               <SidebarTrigger />
               <Separator orientation="vertical" className="mx-2 h-5" />
               <Breadcrumb>
@@ -89,9 +89,7 @@ export default function DocsLayout({ children }: DocsLayoutProps) {
             </div>
           </header>
           <main className="flex-1">
-            <div className="container relative max-w-screen-2xl px-8 py-12">
-              <div className="mx-auto w-full max-w-4xl md:pl-8">{children}</div>
-            </div>
+            <div className="w-full px-4 py-8 md:px-8 md:py-12">{children}</div>
           </main>
         </SidebarInset>
       </div>

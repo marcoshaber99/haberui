@@ -1,0 +1,19 @@
+{
+  "name": "gradient-blob",
+  "type": "registry:ui",
+  "registryDependencies": [],
+  "dependencies": [],
+  "devDependencies": [],
+  "tailwind": {},
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
+  "files": [
+    {
+      "path": "gradient-blob.tsx",
+      "content": "import * as React from \"react\";\nimport { cn } from \"@/lib/utils\";\n\ninterface GradientBlobProps extends React.HTMLAttributes<HTMLDivElement> {\n  size?: \"sm\" | \"md\" | \"lg\" | \"xl\";\n  variant?: \"blue\" | \"purple\" | \"emerald\";\n  animate?: boolean;\n}\n\nconst GradientBlob = React.forwardRef<HTMLDivElement, GradientBlobProps>(\n  (\n    { className, size = \"md\", variant = \"blue\", animate = true, ...props },\n    ref\n  ) => {\n    const sizeClasses = {\n      sm: \"w-32 h-32\",\n      md: \"w-48 h-48\",\n      lg: \"w-64 h-64\",\n      xl: \"w-96 h-96\",\n    };\n\n    const variantClasses = {\n      blue: \"bg-gradient-to-br from-blue-400 via-blue-500 to-cyan-500\",\n      purple: \"bg-gradient-to-br from-purple-400 via-purple-500 to-pink-500\",\n      emerald: \"bg-gradient-to-br from-emerald-400 via-emerald-500 to-teal-500\",\n    };\n\n    return (\n      <div\n        ref={ref}\n        className={cn(\n          \"rounded-full blur-3xl opacity-70\",\n          animate && \"animate-pulse\",\n          sizeClasses[size],\n          variantClasses[variant],\n          className\n        )}\n        {...props}\n      />\n    );\n  }\n);\n\nGradientBlob.displayName = \"GradientBlob\";\n\nexport { GradientBlob };\n",
+      "type": "registry:ui"
+    }
+  ]
+}
