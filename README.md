@@ -39,8 +39,6 @@ export default function App() {
 ## Available Components
 
 - `HaberButton` - Enhanced button component with gradient variant
-- `HaberCard` - Flexible card component with header, content, and footer
-- `HaberGradientBlob` - Animated gradient blob background
 
 ## Documentation
 
