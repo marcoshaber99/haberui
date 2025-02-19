@@ -1,5 +1,7 @@
-import { HaberButton } from "@/components/haber-button";
+import { HaberButton } from "@/components/haber-ui/haber-button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { CommandBox } from "@/components/ui/command-box";
+import { CodeBlock } from "@/components/ui/code-block";
 
 export default function ButtonPage() {
   return (
@@ -39,22 +41,25 @@ export default function ButtonPage() {
             <HaberButton variant="gradient">Gradient</HaberButton>
           </div>
         </TabsContent>
-        <TabsContent value="code" className="rounded-md border bg-muted/50 p-6">
-          <pre className="text-sm">
-            {`import { HaberButton } from "@/components/haber-button"
+        <TabsContent value="code" className="rounded-md border bg-muted p-6">
+          <CodeBlock
+            language="tsx"
+            code={`import { HaberButton } from "@/components/ui/haber-button"
 
 export default function Example() {
   return (
-    <HaberButton>Default</HaberButton>
-    <HaberButton variant="destructive">Destructive</HaberButton>
-    <HaberButton variant="outline">Outline</HaberButton>
-    <HaberButton variant="secondary">Secondary</HaberButton>
-    <HaberButton variant="ghost">Ghost</HaberButton>
-    <HaberButton variant="link">Link</HaberButton>
-    <HaberButton variant="gradient">Gradient</HaberButton>
+    <>
+      <HaberButton>Default</HaberButton>
+      <HaberButton variant="destructive">Destructive</HaberButton>
+      <HaberButton variant="outline">Outline</HaberButton>
+      <HaberButton variant="secondary">Secondary</HaberButton>
+      <HaberButton variant="ghost">Ghost</HaberButton>
+      <HaberButton variant="link">Link</HaberButton>
+      <HaberButton variant="gradient">Gradient</HaberButton>
+    </>
   )
 }`}
-          </pre>
+          />
         </TabsContent>
       </Tabs>
 
@@ -62,54 +67,29 @@ export default function Example() {
         <h2 className="scroll-m-20 text-2xl font-semibold tracking-tight">
           Installation
         </h2>
-        <p className="text-muted-foreground">
-          Install the component using the shadcn CLI:
-        </p>
-        <pre className="rounded-lg bg-muted p-4">
-          npx shadcn@latest add https://your-url/registry/haber-button.json
-        </pre>
-      </div>
-
-      <div className="space-y-4">
-        <h2 className="scroll-m-20 text-2xl font-semibold tracking-tight">
-          Usage
-        </h2>
-        <p className="text-muted-foreground">
-          Import and use the HaberButton component in your React application:
-        </p>
-        <pre className="rounded-lg bg-muted p-4">
-          {`import { HaberButton } from "@/components/haber-button"
-
-export default function MyComponent() {
-  return <HaberButton>Click me</HaberButton>
-}`}
-        </pre>
+        <CommandBox command="npx shadcn@latest add --from=https://your-vercel-deployment-url.vercel.app/registry haber-button" />
       </div>
 
       <div className="space-y-4">
         <h2 className="scroll-m-20 text-2xl font-semibold tracking-tight">
           Props
         </h2>
-        <p className="text-muted-foreground">
-          The HaberButton component accepts the following props:
-        </p>
         <ul className="list-disc pl-6 space-y-2">
           <li>
             <code className="text-sm bg-muted px-1 py-0.5 rounded">
               variant
             </code>
-            : Defines the button&apos;s visual style (default, destructive,
-            outline, secondary, ghost, link, gradient)
+            : default, destructive, outline, secondary, ghost, link, gradient
           </li>
           <li>
             <code className="text-sm bg-muted px-1 py-0.5 rounded">size</code>:
-            Sets the button&apos;s size (default, sm, lg, icon)
+            default, sm, lg, icon
           </li>
           <li>
             <code className="text-sm bg-muted px-1 py-0.5 rounded">
               asChild
             </code>
-            : Boolean to render the button as a child component
+            : boolean
           </li>
         </ul>
       </div>

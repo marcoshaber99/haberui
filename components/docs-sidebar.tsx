@@ -43,7 +43,6 @@ const navigation = {
           href: "/docs/components/haber-button",
           badge: "new",
         },
-        { title: "HaberCard", href: "/docs/components/haber-card" },
       ],
     },
   ],

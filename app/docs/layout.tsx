@@ -24,21 +24,28 @@ interface DocsLayoutProps {
 export default function DocsLayout({ children }: DocsLayoutProps) {
   return (
     <SidebarProvider>
-      <div className="relative flex min-h-screen bg-zinc-950">
+      <div className="relative flex min-h-screen">
         <DocsSidebar />
         <SidebarInset className="flex w-full flex-col">
-          <header className="sticky top-0 z-50 flex h-16 shrink-0 items-center gap-2 border-b border-zinc-800 bg-zinc-950/80 backdrop-blur">
+          <header className="sticky top-0 z-50 flex h-16 shrink-0 items-center gap-2 border-b bg-background/80 backdrop-blur">
             <div className="flex items-center gap-2 px-6">
               <SidebarTrigger />
               <Separator orientation="vertical" className="mr-2 h-4" />
               <Breadcrumb>
                 <BreadcrumbList>
                   <BreadcrumbItem className="hidden md:block">
-                    <BreadcrumbLink href="/docs">Docs</BreadcrumbLink>
+                    <BreadcrumbLink
+                      href="/docs"
+                      className="text-muted-foreground hover:text-foreground"
+                    >
+                      Docs
+                    </BreadcrumbLink>
                   </BreadcrumbItem>
-                  <BreadcrumbSeparator className="hidden md:block" />
+                  <BreadcrumbSeparator className="hidden md:block text-muted-foreground/50" />
                   <BreadcrumbItem>
-                    <BreadcrumbPage>Components</BreadcrumbPage>
+                    <BreadcrumbPage className="text-foreground">
+                      Components
+                    </BreadcrumbPage>
                   </BreadcrumbItem>
                 </BreadcrumbList>
               </Breadcrumb>

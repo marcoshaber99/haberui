@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Github } from "lucide-react";
-import { HaberButton } from "@/components/haber-button";
+import { HaberButton } from "@/components/haber-ui/haber-button";
 
 export function Hero() {
   return (

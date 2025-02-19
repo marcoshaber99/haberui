@@ -3,26 +3,27 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 interface ComponentPageProps {
   params: {
-    slug: string[];
+    slug: Promise<string[]>;
   };
 }
 
-export default function ComponentPage({ params }: ComponentPageProps) {
-  // This would normally fetch your component documentation
-  // For now we'll just show a basic layout
-  if (!params.slug) notFound();
+export default async function ComponentPage({ params }: ComponentPageProps) {
+  const slug = await params.slug;
+  if (!slug) notFound();
+
+  const componentName = slug[slug.length - 1]
+    .split("-")
+    .map((word: string) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(" ");
 
   return (
     <div className="space-y-8">
       <div className="space-y-2">
         <h1 className="text-3xl font-bold tracking-tight text-zinc-50">
-          {params.slug[params.slug.length - 1]
-            .split("-")
-            .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-            .join(" ")}
+          {componentName}
         </h1>
         <p className="text-zinc-400">
-          A description of the {params.slug[params.slug.length - 1]} component.
+          A brief description of the {componentName} component.
         </p>
       </div>
 
@@ -45,9 +46,8 @@ export default function ComponentPage({ params }: ComponentPageProps) {
           value="preview"
           className="rounded-lg border border-zinc-800 p-6"
         >
-          {/* Component preview would go here */}
-          <div className="flex h-[400px] items-center justify-center rounded-md border border-dashed border-zinc-800 bg-zinc-900/50 p-8 text-zinc-400">
-            Component Preview
+          <div className="flex h-[200px] items-center justify-center rounded-md border border-dashed border-zinc-800 bg-zinc-900/50 p-8 text-zinc-400">
+            {componentName} Preview
           </div>
         </TabsContent>
         <TabsContent
@@ -55,15 +55,27 @@ export default function ComponentPage({ params }: ComponentPageProps) {
           className="rounded-lg border border-zinc-800 bg-zinc-900/50 p-6"
         >
           <pre className="text-sm text-zinc-400">
-            {`// Component code would go here
-export default function Component() {
-  return (
-    <div>Component</div>
-  )
+            {`import { ${componentName} } from "@/components/ui/${slug
+              .join("-")
+              .toLowerCase()}"
+
+export default function Example() {
+  return <${componentName} />
 }`}
           </pre>
         </TabsContent>
       </Tabs>
+
+      <div className="space-y-4">
+        <h2 className="text-2xl font-semibold tracking-tight text-zinc-50">
+          Installation
+        </h2>
+        <pre className="rounded-lg bg-zinc-900/50 p-4 text-zinc-400">
+          npx shadcn@latest add
+          --from=https://your-vercel-deployment-url.vercel.app/registry{" "}
+          {slug.join("-").toLowerCase()}
+        </pre>
+      </div>
     </div>
   );
 }
