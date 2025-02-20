@@ -23,12 +23,12 @@ npx shadcn@latest init
 2. Install haber-ui components:
 
 ```shellscript
-npx shadcn@latest add "https://haberui.vercel.app/h/gradient-blob.json"
+npx shadcn@latest add "https://haberui.com/h/gradient-blob.json"
 ```
 
 ## Documentation
 
-Visit [https://haberui.vercel.app](https://haberui.vercel.app) for detailed documentation and examples.
+Visit [https://haberui.com](https://haberui.com) for detailed documentation and examples.
 
 ## License
 
