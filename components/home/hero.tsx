@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Github } from "lucide-react";
-import { HaberButton } from "@/components/haber-ui/haber-button";
+import { Button } from "@/components/ui/button";
 
 export function Hero() {
   return (
@@ -17,9 +17,7 @@ export function Hero() {
         </div>
         <div className="mt-6 flex gap-6">
           <Link href="/docs">
-            <HaberButton size="lg" variant="obsidian">
-              Browse components
-            </HaberButton>
+            <Button size="lg">Browse components</Button>
           </Link>
           <a
             href="https://github.com/marcoshaber99/haberui"

@@ -1,6 +1,5 @@
 import { CommandBox } from "@/components/ui/command-box";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { CodeBlock } from "@/components/ui/code-block";
 
 export default function InstallationPage() {
   return (
@@ -26,60 +25,51 @@ export default function InstallationPage() {
           Installation Steps
         </h2>
         <ol className="list-decimal list-inside space-y-4 text-muted-foreground">
-          <li>
-            <p>Set up shadcn/ui (if not already done):</p>
-            <Tabs defaultValue="npm" className="mt-2">
-              <TabsList>
-                <TabsTrigger value="npm">npm</TabsTrigger>
-                <TabsTrigger value="pnpm">pnpm</TabsTrigger>
-                <TabsTrigger value="yarn">yarn</TabsTrigger>
-              </TabsList>
-              <TabsContent value="npm">
-                <CommandBox command="npx shadcn@latest init" />
-              </TabsContent>
-              <TabsContent value="pnpm">
-                <CommandBox command="pnpm dlx shadcn@latest init" />
-              </TabsContent>
-              <TabsContent value="yarn">
-                <CommandBox command="yarn dlx shadcn-ui@latest init" />
-              </TabsContent>
-            </Tabs>
+          <li className="flex gap-2">
+            <span>1.</span>
+            <div className="flex-1">
+              <p>Set up shadcn/ui (if not already done):</p>
+              <Tabs defaultValue="npm" className="mt-2">
+                <TabsList>
+                  <TabsTrigger value="npm">npm</TabsTrigger>
+                  <TabsTrigger value="pnpm">pnpm</TabsTrigger>
+                  <TabsTrigger value="yarn">yarn</TabsTrigger>
+                </TabsList>
+                <TabsContent value="npm">
+                  <CommandBox command="npx shadcn@latest init" />
+                </TabsContent>
+                <TabsContent value="pnpm">
+                  <CommandBox command="pnpm dlx shadcn@latest init" />
+                </TabsContent>
+                <TabsContent value="yarn">
+                  <CommandBox command="yarn dlx shadcn-ui@latest init" />
+                </TabsContent>
+              </Tabs>
+            </div>
           </li>
-          <li>
-            <p>Install haber-ui components:</p>
-            <Tabs defaultValue="npm" className="mt-2">
-              <TabsList>
-                <TabsTrigger value="npm">npm</TabsTrigger>
-                <TabsTrigger value="pnpm">pnpm</TabsTrigger>
-                <TabsTrigger value="yarn">yarn</TabsTrigger>
-              </TabsList>
-              <TabsContent value="npm">
-                <CommandBox command='npx shadcn@latest add "https://haberui.vercel.app/h/haber-button.json"' />
-              </TabsContent>
-              <TabsContent value="pnpm">
-                <CommandBox command='pnpm dlx shadcn@latest add "https://haberui.vercel.app/h/haber-button.json"' />
-              </TabsContent>
-              <TabsContent value="yarn">
-                <CommandBox command='yarn dlx shadcn-ui@latest add "https://haberui.vercel.app/h/haber-button.json"' />
-              </TabsContent>
-            </Tabs>
+          <li className="flex gap-2">
+            <span>2.</span>
+            <div className="flex-1">
+              <p>Install haber-ui components:</p>
+              <Tabs defaultValue="npm" className="mt-2">
+                <TabsList>
+                  <TabsTrigger value="npm">npm</TabsTrigger>
+                  <TabsTrigger value="pnpm">pnpm</TabsTrigger>
+                  <TabsTrigger value="yarn">yarn</TabsTrigger>
+                </TabsList>
+                <TabsContent value="npm">
+                  <CommandBox command='npx shadcn@latest add "https://haberui.vercel.app/h/gradient-blob.json"' />
+                </TabsContent>
+                <TabsContent value="pnpm">
+                  <CommandBox command='pnpm dlx shadcn@latest add "https://haberui.vercel.app/h/gradient-blob.json"' />
+                </TabsContent>
+                <TabsContent value="yarn">
+                  <CommandBox command='yarn dlx shadcn-ui@latest add "https://haberui.vercel.app/h/gradient-blob.json"' />
+                </TabsContent>
+              </Tabs>
+            </div>
           </li>
         </ol>
-      </div>
-
-      <div className="space-y-4">
-        <h2 className="text-2xl font-bold tracking-tight">Usage</h2>
-        <p className="text-muted-foreground">
-          Import and use haber-ui components in your React components:
-        </p>
-        <CodeBlock
-          language="tsx"
-          code={`import { HaberButton } from "@/components/ui/haber-button"
-
-export default function MyComponent() {
-  return <HaberButton>Click me</HaberButton>
-}`}
-        />
       </div>
     </div>
   );

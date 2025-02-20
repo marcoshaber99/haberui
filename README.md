@@ -20,25 +20,11 @@ A collection of React components built with Tailwind CSS and shadcn/ui.
 npx shadcn@latest init
 ```
 
-2. Install components:
+2. Install haber-ui components:
 
 ```shellscript
-npx shadcn@latest add --from=https://haber-ui.vercel.app/h haber-button
+npx shadcn@latest add --from=https://haber-ui.vercel.app/h <component-name>
 ```
-
-## Usage
-
-```typescriptreact
-import { HaberButton } from "@/components/ui/haber-button"
-
-export default function App() {
-  return <HaberButton>Click me</HaberButton>
-}
-```
-
-## Available Components
-
-- `HaberButton` - Enhanced button component with gradient variant
 
 ## Documentation
 

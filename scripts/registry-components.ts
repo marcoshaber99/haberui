@@ -17,13 +17,6 @@ type ComponentDefinition = Partial<
 
 export const components: ComponentDefinition[] = [
   {
-    name: "haber-button",
-    path: path.join(__dirname, "../components/haber-ui/haber-button.tsx"),
-    registryDependencies: ["button"],
-    dependencies: ["class-variance-authority"],
-    devDependencies: [],
-  },
-  {
     name: "gradient-blob",
     path: path.join(__dirname, "../components/haber-ui/gradient-blob.tsx"),
     registryDependencies: [],

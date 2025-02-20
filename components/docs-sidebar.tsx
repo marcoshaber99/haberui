@@ -40,11 +40,6 @@ const navigation = {
       title: "Components",
       items: [
         {
-          title: "HaberButton",
-          href: "/docs/components/haber-button",
-          badge: "new",
-        },
-        {
           title: "GradientBlob",
           href: "/docs/components/gradient-blob",
           badge: "new",

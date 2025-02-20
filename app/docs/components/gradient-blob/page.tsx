@@ -182,30 +182,63 @@ export default function Example() {
         <h2 className="scroll-m-20 text-2xl font-semibold tracking-tight">
           Props
         </h2>
-        <ul className="list-disc space-y-2 pl-6">
-          <li>
-            <code className="rounded bg-muted px-1 py-0.5 text-sm">
-              variant
-            </code>
-            : blue, purple, emerald
-          </li>
-          <li>
-            <code className="rounded bg-muted px-1 py-0.5 text-sm">size</code>:
-            sm, md, lg, xl
-          </li>
-          <li>
-            <code className="rounded bg-muted px-1 py-0.5 text-sm">
-              animate
-            </code>
-            : boolean - Enable/disable pulse animation (default: true)
-          </li>
-          <li>
-            <code className="rounded bg-muted px-1 py-0.5 text-sm">
-              className
-            </code>
-            : string - Additional CSS classes
-          </li>
-        </ul>
+        <div className="rounded-lg border">
+          <table className="w-full">
+            <thead>
+              <tr className="border-b bg-muted/50">
+                <th className="p-4 text-left text-sm font-medium">Prop</th>
+                <th className="p-4 text-left text-sm font-medium">Type</th>
+                <th className="p-4 text-left text-sm font-medium">Default</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr className="border-b">
+                <td className="p-4">
+                  <code className="rounded bg-muted px-1.5 py-0.5 text-sm font-mono">
+                    variant
+                  </code>
+                </td>
+                <td className="p-4 text-sm text-muted-foreground font-mono">
+                  blue | purple | emerald
+                </td>
+                <td className="p-4 text-sm text-muted-foreground">blue</td>
+              </tr>
+              <tr className="border-b">
+                <td className="p-4">
+                  <code className="rounded bg-muted px-1.5 py-0.5 text-sm font-mono">
+                    size
+                  </code>
+                </td>
+                <td className="p-4 text-sm text-muted-foreground font-mono">
+                  sm | md | lg | xl
+                </td>
+                <td className="p-4 text-sm text-muted-foreground">md</td>
+              </tr>
+              <tr className="border-b">
+                <td className="p-4">
+                  <code className="rounded bg-muted px-1.5 py-0.5 text-sm font-mono">
+                    animate
+                  </code>
+                </td>
+                <td className="p-4 text-sm text-muted-foreground font-mono">
+                  boolean
+                </td>
+                <td className="p-4 text-sm text-muted-foreground">true</td>
+              </tr>
+              <tr>
+                <td className="p-4">
+                  <code className="rounded bg-muted px-1.5 py-0.5 text-sm font-mono">
+                    className
+                  </code>
+                </td>
+                <td className="p-4 text-sm text-muted-foreground font-mono">
+                  string
+                </td>
+                <td className="p-4 text-sm text-muted-foreground">undefined</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   );
