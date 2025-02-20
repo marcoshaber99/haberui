@@ -8,22 +8,22 @@ export function Hero() {
       <div className="relative flex flex-col items-center gap-4 text-center">
         <div className="space-y-6">
           <h1 className="mx-auto max-w-[800px] bg-gradient-to-b from-foreground to-foreground/80 bg-clip-text text-center text-5xl font-bold tracking-tight text-transparent md:text-6xl lg:text-7xl">
-            Build faster with beautiful components
+            Modern React components for your next project
           </h1>
           <p className="mx-auto max-w-[600px] text-center text-lg text-muted-foreground">
-            Premium UI components built with React and Tailwind CSS. Save time
-            and ship your next project faster.
+            A collection of accessible, customizable components built on
+            shadcn/ui.
           </p>
         </div>
         <div className="mt-6 flex gap-6">
           <Link href="/docs">
-            <Button size="lg">Browse components</Button>
+            <Button>View Components</Button>
           </Link>
           <a
             href="https://github.com/marcoshaber99/haberui"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-foreground"
+            className="inline-flex items-center gap-2 text-sm transition-colors"
           >
             <Github className="h-5 w-5" />
             <span>GitHub</span>

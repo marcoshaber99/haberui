@@ -14,7 +14,13 @@ export function Nav() {
             href="/"
             className="flex items-center gap-2 text-sm font-semibold"
           >
-            <Image src="/logo.svg" alt="Logo" width={10} height={14} />
+            <Image
+              src="/logo.svg"
+              alt="Logo"
+              width={10}
+              height={14}
+              className="dark:invert-0 invert"
+            />
             haber-ui
           </Link>
           <p className="text-muted-foreground transition-colors hover:text-foreground text-sm">
