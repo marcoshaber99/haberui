@@ -2,6 +2,9 @@ import fs from "fs";
 import path from "path";
 import { components } from "./registry-components";
 
+/**
+ * Updates registry-components.ts with newly discovered components
+ */
 function updateRegistryComponents() {
   const componentsDir = path.join(process.cwd(), "components", "haber-ui");
   const existingComponents = new Map(
@@ -20,6 +23,7 @@ function updateRegistryComponents() {
       newComponents.push({
         name,
         path: path.join(__dirname, "../components/haber-ui", file),
+        version: "1.0.0", // Default version for new components
         registryDependencies: [],
         dependencies: [],
       });
@@ -43,6 +47,7 @@ function updateRegistryComponents() {
     path: path.join(__dirname, '../components/haber-ui/${path.basename(
       comp.path
     )}'),
+    version: '1.0.0',
     registryDependencies: [],
     dependencies: [],
   }`

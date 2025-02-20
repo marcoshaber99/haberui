@@ -1,6 +1,8 @@
 {
   "name": "gradient-blob",
   "type": "registry:ui",
+  "version": "1.0.0",
+  "lastUpdated": "2025-02-20T18:03:40.830Z",
   "registryDependencies": [],
   "dependencies": [],
   "devDependencies": [],
