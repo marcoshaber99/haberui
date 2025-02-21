@@ -1,0 +1,26 @@
+{
+  "name": "ai-sentiment-analyzer",
+  "type": "registry:ui",
+  "version": "1.0.0",
+  "lastUpdated": "2025-02-21T16:17:04.578Z",
+  "registryDependencies": [
+    "textarea",
+    "button"
+  ],
+  "dependencies": [
+    "lucide-react"
+  ],
+  "devDependencies": [],
+  "tailwind": {},
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
+  "files": [
+    {
+      "path": "ai-sentiment-analyzer.tsx",
+      "content": "\"use client\";\n\nimport * as React from \"react\";\nimport { cn } from \"@/lib/utils\";\nimport { Textarea } from \"@/components/ui/textarea\";\nimport { Button } from \"@/components/ui/button\";\nimport { Loader2, ThumbsUp, ThumbsDown, Meh } from \"lucide-react\";\n\ninterface AISentimentAnalyzerProps\n  extends React.HTMLAttributes<HTMLDivElement> {\n  onAnalyze: (text: string) => Promise<number>;\n}\n\nconst AISentimentAnalyzer = React.forwardRef<\n  HTMLDivElement,\n  AISentimentAnalyzerProps\n>(({ className, onAnalyze, ...props }, ref) => {\n  const [text, setText] = React.useState(\"\");\n  const [sentiment, setSentiment] = React.useState<number | null>(null);\n  const [isAnalyzing, setIsAnalyzing] = React.useState(false);\n\n  const handleAnalyze = async () => {\n    if (!text.trim()) return;\n\n    // Basic validation for extremely short random input\n    if (text.trim().length < 4) {\n      console.warn(\"Text too short for meaningful sentiment analysis\");\n      setSentiment(0); // Neutral for very short input\n      return;\n    }\n\n    setIsAnalyzing(true);\n    try {\n      const result = await onAnalyze(text);\n      setSentiment(result);\n    } catch (error) {\n      console.error(\"Error analyzing sentiment:\", error);\n    } finally {\n      setIsAnalyzing(false);\n    }\n  };\n\n  const getSentimentIcon = () => {\n    if (sentiment === null) return null;\n    if (sentiment > 0.5) return <ThumbsUp className=\"w-6 h-6 text-green-500\" />;\n    if (sentiment < -0.5)\n      return <ThumbsDown className=\"w-6 h-6 text-red-500\" />;\n    return <Meh className=\"w-6 h-6 text-yellow-500\" />;\n  };\n\n  const getSentimentText = () => {\n    if (sentiment === null) return \"\";\n    if (sentiment > 0.5) return \"Positive\";\n    if (sentiment < -0.5) return \"Negative\";\n    return \"Neutral\";\n  };\n\n  return (\n    <div ref={ref} className={cn(\"space-y-4\", className)} {...props}>\n      <Textarea\n        placeholder=\"Enter text to analyze sentiment...\"\n        value={text}\n        onChange={(e) => setText(e.target.value)}\n        className=\"min-h-[100px]\"\n      />\n      <div className=\"flex items-center justify-between\">\n        <Button onClick={handleAnalyze} disabled={isAnalyzing || !text.trim()}>\n          {isAnalyzing ? (\n            <>\n              <Loader2 className=\"mr-2 h-4 w-4 animate-spin\" />\n              Analyzing...\n            </>\n          ) : (\n            \"Analyze Sentiment\"\n          )}\n        </Button>\n        {sentiment !== null && (\n          <div className=\"flex items-center space-x-2\">\n            {getSentimentIcon()}\n            <span className=\"font-medium\">{getSentimentText()}</span>\n          </div>\n        )}\n      </div>\n    </div>\n  );\n});\n\nAISentimentAnalyzer.displayName = \"AISentimentAnalyzer\";\n\nexport { AISentimentAnalyzer };\n",
+      "type": "registry:ui"
+    }
+  ]
+}

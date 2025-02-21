@@ -58,13 +58,13 @@ export default function InstallationPage() {
                   <TabsTrigger value="yarn">yarn</TabsTrigger>
                 </TabsList>
                 <TabsContent value="npm">
-                  <CommandBox command='npx shadcn@latest add "https://haberui.vercel.app/h/gradient-blob.json"' />
+                  <CommandBox command='npx shadcn@latest add "https://haberui.vercel.app/h/ai-sentiment-analyzer.json"' />
                 </TabsContent>
                 <TabsContent value="pnpm">
-                  <CommandBox command='pnpm dlx shadcn@latest add "https://haberui.vercel.app/h/gradient-blob.json"' />
+                  <CommandBox command='pnpm dlx shadcn@latest add "https://haberui.vercel.app/h/ai-sentiment-analyzer.json"' />
                 </TabsContent>
                 <TabsContent value="yarn">
-                  <CommandBox command='yarn dlx shadcn-ui@latest add "https://haberui.vercel.app/h/gradient-blob.json"' />
+                  <CommandBox command='yarn dlx shadcn-ui@latest add "https://haberui.vercel.app/h/ai-sentiment-analyzer.json"' />
                 </TabsContent>
               </Tabs>
             </div>

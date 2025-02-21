@@ -8,11 +8,11 @@ export function Hero() {
       <div className="relative flex flex-col items-center gap-4 text-center">
         <div className="space-y-6">
           <h1 className="mx-auto max-w-[800px] bg-gradient-to-b from-foreground to-foreground/80 bg-clip-text text-center text-5xl font-bold tracking-tight text-transparent md:text-6xl lg:text-7xl">
-            Modern React components for your next project
+            Modern UI components for AI-powered apps
           </h1>
           <p className="mx-auto max-w-[600px] text-center text-lg text-muted-foreground">
-            A collection of accessible, customizable components built on
-            shadcn/ui.
+            A collection of elegant React components designed for modern
+            applications. From simple UI elements to AI-ready interfaces.
           </p>
         </div>
         <div className="mt-6 flex gap-6">

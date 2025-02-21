@@ -40,8 +40,8 @@ const navigation = {
       title: "Components",
       items: [
         {
-          title: "GradientBlob",
-          href: "/docs/components/gradient-blob",
+          title: "Sentiment",
+          href: "/docs/components/ai-sentiment-analyzer",
           badge: "new",
         },
       ],
@@ -122,23 +122,23 @@ function NavigationContent({ pathname }: { pathname: string }) {
                       <SidebarMenuSubButton
                         asChild
                         isActive={pathname === item.href}
-                        className="w-full rounded-md px-4 py-2 text-sm hover:bg-accent"
+                        className="w-full rounded-md px-4 py-3 text-sm hover:bg-accent flex items-center justify-between gap-2"
                       >
                         <Link
                           href={item.href}
-                          className="flex items-center justify-between"
+                          className="flex items-center justify-between w-full"
                         >
-                          {item.title}
+                          <span className="truncate">{item.title}</span>
                           {item.badge && (
                             <Badge
                               variant={
                                 item.badge === "new" ? "default" : "secondary"
                               }
-                              className="border bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 
-                                     border-emerald-500/20 dark:border-emerald-400/30
-                                     shadow-[0_0_10px_rgba(16,185,129,0.1)]
-                                     dark:shadow-[0_0_10px_rgba(52,211,153,0.2)]
-                                     dark:bg-emerald-400/10"
+                              className="ml-2 h-5 px-1.5 border bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 
+                                       border-emerald-500/20 dark:border-emerald-400/30
+                                       shadow-[0_0_10px_rgba(16,185,129,0.1)]
+                                       dark:shadow-[0_0_10px_rgba(52,211,153,0.2)]
+                                       dark:bg-emerald-400/10"
                             >
                               {item.badge}
                             </Badge>

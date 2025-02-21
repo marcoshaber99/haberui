@@ -4,7 +4,24 @@
 
 # haber-ui
 
-A collection of React components built with Tailwind CSS and shadcn/ui.
+A collection of React components designed for modern applications, with a focus on AI integration patterns. Built with Tailwind CSS and shadcn/ui.
+
+## Features
+
+- 🤖 AI-ready components and patterns
+- 🎨 Modern, elegant UI elements
+- ⚡️ Interactive animations and transitions
+- 🔌 Easy integration with AI services
+- 🎯 Focus on user experience
+- 📱 Fully responsive
+- 🌙 Dark mode support
+
+## Component Categories
+
+- **AI Interface Components** - Ready-to-use components for AI interactions
+- **UI Elements** - Beautiful, interactive UI components
+- **Layout Patterns** - Common layouts for AI-powered applications
+- **Feedback Components** - Loading states, results displays, and more
 
 ## Prerequisites
 
@@ -17,18 +34,18 @@ A collection of React components built with Tailwind CSS and shadcn/ui.
 1. Set up shadcn/ui in your project:
 
 ```bash
-npx shadcn@latest init
+pnpm dlx shadcn@latest init
 ```
 
 2. Install haber-ui components:
 
-```shellscript
-npx shadcn@latest add "https://haberui.com/h/gradient-blob.json"
+```bash
+pnpm dlx shadcn@latest add "https://haberui.com/h/[component-name].json"
 ```
 
 ## Documentation
 
-Visit [https://haberui.com](https://haberui.com) for detailed documentation and examples.
+Visit [https://haberui.com](https://haberui.com) for detailed documentation, examples, and live previews.
 
 ## License
 
