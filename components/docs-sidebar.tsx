@@ -58,7 +58,7 @@ function NavigationContent({ pathname }: { pathname: string }) {
           <SidebarMenuItem>
             <SidebarMenuButton size="lg" asChild>
               <Link href="/" className="flex items-center gap-3 px-2">
-                <div className="flex size-9 items-center justify-center rounded-lg bg-gradient-to-br from-blue-500/90 to-purple-600/90 ring-1 ring-blue-500/20">
+                <div className="flex size-9 items-center justify-center rounded-lg bg-gradient-to-br from-gray-500 to-zinc-800/90 ring-1 ring-gray-500/20">
                   <Image
                     src="/logo.svg"
                     alt="Logo"

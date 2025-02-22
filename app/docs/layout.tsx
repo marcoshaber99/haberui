@@ -76,7 +76,7 @@ export default function DocsLayout({ children }: DocsLayoutProps) {
 
   return (
     <SidebarProvider>
-      <div className="relative flex min-h-screen overflow-hidden pl-6">
+      <div className="relative flex min-h-screen overflow-hidden pl-2">
         <DocsSidebar />
         <SidebarInset className="flex min-w-0 w-full flex-col pt-4">
           <header className="sticky top-0 z-50 flex h-[60px] shrink-0 items-center gap-2 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
