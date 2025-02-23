@@ -132,7 +132,7 @@ export default function Example() {
         <h2 className="scroll-m-20 text-2xl font-semibold tracking-tight">
           Installation
         </h2>
-        <CommandBox command='npx shadcn@latest add "https://haberui.vercel.app/h/ai-sentiment-analyzer.json"' />
+        <CommandBox command='npx shadcn@latest add "https://haberui.com/h/ai-sentiment-analyzer.json"' />
       </div>
 
       <div className="space-y-4">

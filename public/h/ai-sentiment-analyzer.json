@@ -2,7 +2,7 @@
   "name": "ai-sentiment-analyzer",
   "type": "registry:ui",
   "version": "1.0.0",
-  "lastUpdated": "2025-02-21T16:17:04.578Z",
+  "lastUpdated": "2025-02-22T21:17:15.636Z",
   "registryDependencies": [
     "textarea",
     "button"

@@ -77,7 +77,7 @@ export default async function ComponentPage({ params, searchParams }: Props) {
         </h2>
         <pre className="rounded-lg bg-zinc-900/50 p-4 text-zinc-400 overflow-x-auto">
           <code className="text-[13px] md:text-sm whitespace-pre-wrap break-words">
-            {`npx shadcn@latest add "https://haberui.vercel.app/h/${resolvedParams.slug
+            {`npx shadcn@latest add "https://haberui.com/h/${resolvedParams.slug
               .join("-")
               .toLowerCase()}.json"`}
           </code>
