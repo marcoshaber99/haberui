@@ -5,6 +5,10 @@ type ComponentDefinition = {
   name: string;
   path: string;
   version: string;
+  additionalFiles?: Array<{
+    name: string;
+    path: string;
+  }>;
 } & Partial<
   Pick<
     Schema,
@@ -26,6 +30,14 @@ export const components: ComponentDefinition[] = [
     version: "1.0.0",
     registryDependencies: ["textarea", "button"],
     dependencies: ["lucide-react"],
+    devDependencies: [],
+  },
+  {
+    name: "thinking-state",
+    path: path.join(__dirname, "../components/haber-ui/thinking-state.tsx"),
+    version: "1.0.0",
+    registryDependencies: [],
+    dependencies: [],
     devDependencies: [],
   },
 ];

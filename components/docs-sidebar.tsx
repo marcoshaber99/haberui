@@ -44,6 +44,11 @@ const navigation = {
           href: "/docs/components/ai-sentiment-analyzer",
           badge: "new",
         },
+        {
+          title: "ThinkingState",
+          href: "/docs/components/thinking-state",
+          badge: "new",
+        },
       ],
     },
   ],

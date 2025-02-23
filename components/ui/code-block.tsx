@@ -3,7 +3,7 @@
 import type React from "react";
 import { useEffect, useState } from "react";
 import Prism from "prismjs";
-import "prismjs/themes/prism-tomorrow.css"; // You can choose a different theme
+import "./prism-night-owl.css";
 import "prismjs/components/prism-jsx";
 import "prismjs/components/prism-tsx";
 import "prismjs/components/prism-typescript";

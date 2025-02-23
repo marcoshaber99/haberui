@@ -1,10 +1,11 @@
 import Link from "next/link";
 import { Github } from "lucide-react";
+
 import { Button } from "@/components/ui/button";
 
 export function Hero() {
   return (
-    <section className="w-full flex flex-col items-center px-4">
+    <section className="w-full flex flex-col items-center px-4 py-48">
       <Link
         href="/docs/components/ai-sentiment-analyzer"
         className="mb-8 rounded-full bg-green-600/70 text-white px-4 py-2 text-xs sm:px-6 sm:py-2.5 sm:text-sm hover:bg-blue-600/80 transition-colors"

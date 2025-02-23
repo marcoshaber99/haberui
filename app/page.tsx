@@ -10,7 +10,7 @@ export default function Home() {
       <div className="absolute inset-0 bg-grid-white/[0.02] bg-[size:75px_75px]" />
       <div className="relative flex min-h-screen flex-col">
         <Nav />
-        <main className="flex-1 flex py-48 w-full">
+        <main className="flex-1 flex w-full">
           <Hero />
         </main>
         <Footer />

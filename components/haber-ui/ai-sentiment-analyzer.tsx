@@ -9,12 +9,13 @@ import { Loader2, ThumbsUp, ThumbsDown, Meh } from "lucide-react";
 interface AISentimentAnalyzerProps
   extends React.HTMLAttributes<HTMLDivElement> {
   onAnalyze: (text: string) => Promise<number>;
+  showScore?: boolean;
 }
 
 const AISentimentAnalyzer = React.forwardRef<
   HTMLDivElement,
   AISentimentAnalyzerProps
->(({ className, onAnalyze, ...props }, ref) => {
+>(({ className, onAnalyze, showScore = false, ...props }, ref) => {
   const [text, setText] = React.useState("");
   const [sentiment, setSentiment] = React.useState<number | null>(null);
   const [isAnalyzing, setIsAnalyzing] = React.useState(false);
@@ -40,6 +41,11 @@ const AISentimentAnalyzer = React.forwardRef<
     }
   };
 
+  const handleReset = () => {
+    setText("");
+    setSentiment(null);
+  };
+
   const getSentimentIcon = () => {
     if (sentiment === null) return null;
     if (sentiment > 0.5) return <ThumbsUp className="w-6 h-6 text-green-500" />;
@@ -50,9 +56,9 @@ const AISentimentAnalyzer = React.forwardRef<
 
   const getSentimentText = () => {
     if (sentiment === null) return "";
-    if (sentiment > 0.5) return "Positive";
-    if (sentiment < -0.5) return "Negative";
-    return "Neutral";
+    const category =
+      sentiment > 0.5 ? "Positive" : sentiment < -0.5 ? "Negative" : "Neutral";
+    return showScore ? `${sentiment.toFixed(2)} (${category})` : category;
   };
 
   return (
@@ -64,18 +70,31 @@ const AISentimentAnalyzer = React.forwardRef<
         className="min-h-[100px]"
       />
       <div className="flex items-center justify-between">
-        <Button onClick={handleAnalyze} disabled={isAnalyzing || !text.trim()}>
-          {isAnalyzing ? (
-            <>
-              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-              Analyzing...
-            </>
-          ) : (
-            "Analyze Sentiment"
+        <div className="flex gap-2">
+          <Button
+            onClick={handleAnalyze}
+            disabled={isAnalyzing || !text.trim()}
+          >
+            {isAnalyzing ? (
+              <>
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                Analyzing...
+              </>
+            ) : (
+              "Analyze Sentiment"
+            )}
+          </Button>
+          {sentiment !== null && (
+            <Button variant="outline" onClick={handleReset}>
+              Clear
+            </Button>
           )}
-        </Button>
+        </div>
         {sentiment !== null && (
-          <div className="flex items-center space-x-2">
+          <div
+            className="flex items-center space-x-2"
+            aria-label={`Sentiment: ${getSentimentText()}`}
+          >
             {getSentimentIcon()}
             <span className="font-medium">{getSentimentText()}</span>
           </div>

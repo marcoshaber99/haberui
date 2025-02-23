@@ -63,16 +63,6 @@ export default function AISentimentAnalyzerPage() {
         </ul>
       </div>
 
-      <div className="space-y-4">
-        <h2 className="text-2xl font-semibold tracking-tight">Use Cases</h2>
-        <ul className="list-disc list-inside space-y-1 text-muted-foreground">
-          <li>Analyzing customer feedback</li>
-          <li>Monitoring social media sentiment</li>
-          <li>Evaluating product reviews</li>
-          <li>Content moderation systems</li>
-        </ul>
-      </div>
-
       <Tabs defaultValue="preview" className="relative mt-6 w-full">
         <TabsList className="w-full justify-start rounded-none border-b bg-transparent p-0">
           <TabsTrigger value="preview">Preview</TabsTrigger>
@@ -96,13 +86,13 @@ export default function AISentimentAnalyzerPage() {
           value="preview"
           className="space-y-6 rounded-md border p-6"
         >
-          <AISentimentAnalyzer onAnalyze={analyzeSentiment} />
+          <AISentimentAnalyzer onAnalyze={analyzeSentiment} showScore />
         </TabsContent>
 
         <TabsContent value="code" className="rounded-md border bg-muted p-6">
           <CodeBlock
             language="tsx"
-            code={`// With OpenAI
+            code={`// With OpenAI and score display
 const analyzeSentiment = async (text: string) => {
   const response = await fetch('/api/analyze-sentiment', {
     method: 'POST',
@@ -113,16 +103,9 @@ const analyzeSentiment = async (text: string) => {
   return data.score;
 };
 
-// With custom implementation
-const customAnalyze = async (text: string) => {
-  // Return score between -1 and 1
-  const score = await yourSentimentService(text);
-  return score;
-};
-
 // Usage
 export default function Example() {
-  return <AISentimentAnalyzer onAnalyze={analyzeSentiment} />;
+  return <AISentimentAnalyzer onAnalyze={analyzeSentiment} showScore />;
 }`}
           />
         </TabsContent>
@@ -163,6 +146,34 @@ export default function Example() {
                 <td className="p-4 text-sm text-muted-foreground">
                   A function that takes the input text and returns a sentiment
                   score between -1 (very negative) and 1 (very positive).
+                </td>
+              </tr>
+              <tr className="border-b">
+                <td className="p-4">
+                  <code className="rounded bg-muted px-1.5 py-0.5 text-sm font-mono">
+                    className
+                  </code>
+                </td>
+                <td className="p-4 text-sm text-muted-foreground font-mono">
+                  string
+                </td>
+                <td className="p-4 text-sm text-muted-foreground">
+                  Additional CSS classes to apply to the component. Supports all
+                  Tailwind classes including colors.
+                </td>
+              </tr>
+              <tr className="border-b">
+                <td className="p-4">
+                  <code className="rounded bg-muted px-1.5 py-0.5 text-sm font-mono">
+                    showScore
+                  </code>
+                </td>
+                <td className="p-4 text-sm text-muted-foreground font-mono">
+                  boolean
+                </td>
+                <td className="p-4 text-sm text-muted-foreground">
+                  When true, displays the raw sentiment score alongside the
+                  category. Defaults to false.
                 </td>
               </tr>
             </tbody>
