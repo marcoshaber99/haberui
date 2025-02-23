@@ -6,14 +6,7 @@
   "registryDependencies": [],
   "dependencies": [],
   "devDependencies": [],
-  "tailwind": {
-    "prerequisites": [
-      "Requires Tailwind CSS to be installed and configured",
-      "Requires the `cn` utility from @/lib/utils (clsx + tailwind-merge)",
-      "Installation:",
-      "npx shadcn@latest add \"https://haberui.com/h/thinking-state.json\""
-    ]
-  },
+  "tailwind": {},
   "cssVars": {
     "light": {},
     "dark": {}

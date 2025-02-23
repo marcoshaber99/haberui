@@ -3,19 +3,15 @@
   "type": "registry:ui",
   "version": "1.0.0",
   "lastUpdated": "2025-02-23T22:05:40.287Z",
-  "registryDependencies": ["textarea", "button"],
-  "dependencies": ["lucide-react"],
+  "registryDependencies": [
+    "textarea",
+    "button"
+  ],
+  "dependencies": [
+    "lucide-react"
+  ],
   "devDependencies": [],
-  "tailwind": {
-    "prerequisites": [
-      "Requires Tailwind CSS to be installed and configured",
-      "Requires the `cn` utility from @/lib/utils (clsx + tailwind-merge)",
-      "Requires shadcn/ui textarea and button components to be installed first",
-      "Installation order:",
-      "1. npx shadcn@latest add textarea button",
-      "2. npx shadcn@latest add \"https://haberui.com/h/ai-sentiment-analyzer.json\""
-    ]
-  },
+  "tailwind": {},
   "cssVars": {
     "light": {},
     "dark": {}
