@@ -2,7 +2,7 @@ import path from "path";
 import fs from "fs-extra";
 import chalk from "chalk";
 import inquirer from "inquirer";
-import { CONFIG_FILE } from "../utils/constants";
+import { CONFIG_FILE, DEFAULT_REGISTRY } from "../utils/constants";
 
 interface InitOptions {
   cwd?: string;
@@ -64,12 +64,12 @@ export async function init(options: InitOptions): Promise<void> {
 
   // Create config file
   const config = {
-    $schema: "https://haberui.com/schema.json",
+    $schema: "https://haberui.com/h/schema.json",
     style: style || "tailwind",
     tailwind: tailwind !== false,
     componentDir,
     importPath,
-    registry: "https://haberui.com/h",
+    registry: DEFAULT_REGISTRY,
   };
 
   await fs.writeJSON(configPath, config, { spaces: 2 });

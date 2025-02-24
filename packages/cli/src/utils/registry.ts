@@ -1,6 +1,29 @@
 import path from "path";
 import fs from "fs-extra";
 import { getConfig } from "./config";
+import chalk from "chalk";
+
+// Add this at the top - we need to conditionally import 'node-fetch'
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+let fetch: any;
+
+// Dynamically import node-fetch (prevents issues with ESM/CommonJS)
+async function getFetch() {
+  if (!fetch) {
+    try {
+      // Try requiring directly first
+      // eslint-disable-next-line @typescript-eslint/no-require-imports
+      fetch = require("node-fetch");
+    } catch (e) {
+      console.error("Error importing node-fetch:", e);
+      // If that fails, try dynamic import
+      // eslint-disable-next-line @next/next/no-assign-module-variable
+      const module = await import("node-fetch");
+      fetch = module.default;
+    }
+  }
+  return fetch;
+}
 
 export interface Component {
   name: string;
@@ -10,7 +33,6 @@ export interface Component {
   dependencies?: string[];
   devDependencies?: string[];
   registryDependencies?: string[];
-
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   tailwind?: any;
 }
@@ -28,22 +50,36 @@ export async function getComponents(): Promise<Component[]> {
     return [];
   }
 
-  try {
-    // For local development, read from the public/h directory
-    const registryDir = path.join(process.cwd(), "public/h");
-    const indexPath = path.join(registryDir, "index.json");
+  // Try local directory first (for development)
+  const registryDir = path.join(process.cwd(), "public/h");
+  const localIndexPath = path.join(registryDir, "index.json");
 
-    if (await fs.pathExists(indexPath)) {
-      const data = await fs.readJSON(indexPath);
+  if (await fs.pathExists(localIndexPath)) {
+    try {
+      const data = await fs.readJSON(localIndexPath);
       return data.components as Component[];
+    } catch (error) {
+      console.error("Error reading local index:", error);
+    }
+  }
+
+  // If local file doesn't exist, fetch from registry URL
+  try {
+    const fetchFn = await getFetch();
+    const registryUrl = `${config.registry}/index.json`;
+
+    console.log(`Fetching components from ${chalk.cyan(registryUrl)}...`);
+
+    const response = await fetchFn(registryUrl);
+
+    if (!response.ok) {
+      throw new Error(`Failed to fetch components: ${response.statusText}`);
     }
 
-    // If local file doesn't exist, we'll need to fetch from the registry URL
-    // For now, we'll return an empty array as we haven't implemented remote fetching yet
-    console.warn("Registry index file not found.");
-    return [];
+    const data = await response.json();
+    return data.components as Component[];
   } catch (error) {
-    console.error("Error fetching components:", error);
+    console.error("Error fetching remote components:", error);
     return [];
   }
 }
@@ -55,19 +91,41 @@ export async function fetchComponent(name: string): Promise<Component | null> {
     return null;
   }
 
-  try {
-    // For local development, read from the public/h directory
-    const componentPath = path.join(process.cwd(), "public/h", `${name}.json`);
+  // Try local file first (for development)
+  const localComponentPath = path.join(
+    process.cwd(),
+    "public/h",
+    `${name}.json`
+  );
 
-    if (await fs.pathExists(componentPath)) {
-      const component = await fs.readJSON(componentPath);
+  if (await fs.pathExists(localComponentPath)) {
+    try {
+      const component = await fs.readJSON(localComponentPath);
       return component as Component;
+    } catch (error) {
+      console.error(`Error reading local component ${name}:`, error);
+    }
+  }
+
+  // If local file doesn't exist, fetch from registry URL
+  try {
+    const fetchFn = await getFetch();
+    const componentUrl = `${config.registry}/${name}.json`;
+
+    const response = await fetchFn(componentUrl);
+
+    if (!response.ok) {
+      if (response.status === 404) {
+        console.warn(`Component ${name} not found at ${componentUrl}`);
+        return null;
+      }
+      throw new Error(`Failed to fetch component: ${response.statusText}`);
     }
 
-    console.warn(`Component ${name} not found.`);
-    return null;
+    const component = await response.json();
+    return component as Component;
   } catch (error) {
-    console.error(`Error fetching component ${name}:`, error);
+    console.error(`Error fetching remote component ${name}:`, error);
     return null;
   }
 }

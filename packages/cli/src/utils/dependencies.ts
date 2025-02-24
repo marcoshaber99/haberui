@@ -14,22 +14,70 @@ export async function installDependencies(
   const dependencies = component.dependencies || [];
   const devDependencies = component.devDependencies || [];
 
-  // Install registry dependencies first if any
+  // Install registry dependencies like shadcn components
   if (component.registryDependencies?.length) {
     for (const dep of component.registryDependencies) {
-      console.log(`Installing registry dependency: ${dep}`);
+      console.log(`Installing shadcn dependency: ${dep}`);
       try {
-        // For now, we're skipping this as we haven't implemented recursive adding yet
-        console.log(
-          `Note: Registry dependency ${dep} will need to be installed separately.`
-        );
+        // Check if it's a shadcn component
+        if (isShadcnComponent(dep)) {
+          // Run shadcn add command
+          await execAsync(`npx shadcn@latest add ${dep} --yes`);
+        } else {
+          // It's a haber-ui component
+          await execAsync(`haber add ${dep} --yes`);
+        }
       } catch (error) {
-        console.warn(
-          `Warning: Failed to install registry dependency ${dep}`,
-          error
-        );
+        console.warn(`Warning: Failed to install dependency ${dep}`, error);
       }
     }
+  }
+
+  // Function to check if a component is from shadcn
+  function isShadcnComponent(name: string): boolean {
+    // List of common shadcn components
+    const shadcnComponents = [
+      "accordion",
+      "alert",
+      "alert-dialog",
+      "aspect-ratio",
+      "avatar",
+      "badge",
+      "button",
+      "calendar",
+      "card",
+      "checkbox",
+      "collapsible",
+      "combobox",
+      "command",
+      "context-menu",
+      "dialog",
+      "dropdown-menu",
+      "form",
+      "hover-card",
+      "input",
+      "label",
+      "menubar",
+      "navigation-menu",
+      "popover",
+      "progress",
+      "radio-group",
+      "scroll-area",
+      "select",
+      "separator",
+      "sheet",
+      "skeleton",
+      "slider",
+      "switch",
+      "table",
+      "tabs",
+      "textarea",
+      "toast",
+      "toggle",
+      "tooltip",
+    ];
+
+    return shadcnComponents.includes(name);
   }
 
   // Check package manager used in the project
