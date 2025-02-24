@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 
 export function Hero() {
   return (
-    <section className="w-full flex flex-col items-center px-4 py-16">
+    <section className="w-full flex flex-col items-center px-4 py-8 sm:py-12">
       <Link
         href="/docs/components/thinking-state"
         className="mb-8 rounded-full bg-slate-600/70 text-white px-4 py-2 text-xs sm:text-sm hover:bg-slate-600/80 transition-colors"
@@ -23,7 +23,7 @@ export function Hero() {
             applications.
           </p>
         </div>
-        <div className="mt-8 flex flex-col sm:flex-row gap-4 sm:gap-6">
+        <div className="mt-4 sm:mt-8 flex flex-col sm:flex-row gap-4 sm:gap-6">
           <Link href="/docs">
             <Button className="rounded-full w-full sm:w-auto">
               Get started →
