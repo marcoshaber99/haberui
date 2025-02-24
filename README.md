@@ -1,7 +1,3 @@
-<div align="center">
-  <img src="public/logo.svg" alt="haber-ui logo" width="100" height="100" />
-</div>
-
 # haber-ui
 
 ![haber-ui](public/og.png)
