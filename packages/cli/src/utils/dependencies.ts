@@ -58,7 +58,7 @@ export async function installDependencies(
           "This component has shadcn/ui dependencies, but shadcn/ui is not initialized."
         );
         console.log(
-          "Please run 'npx shadcn-ui@latest init' first, then try installing the component again."
+          "Please run 'npx shadcn@latest init' first, then try installing the component again."
         );
         console.log(
           "Continuing with installation, but some dependencies may not be installed correctly."
@@ -68,17 +68,14 @@ export async function installDependencies(
         for (const dep of shadcnDeps) {
           console.log(`Installing shadcn dependency: ${dep}`);
           try {
-            await execWithTimeout(
-              `npx shadcn-ui@latest add ${dep} --yes`,
-              120000
-            );
+            await execWithTimeout(`npx shadcn@latest add ${dep} --yes`, 120000);
             console.log(`✓ Installed ${dep}`);
           } catch (error) {
             console.warn(error);
             console.warn(
               `⚠️ Failed to install shadcn dependency ${dep}. You may need to install it manually.`
             );
-            console.warn(`Run: npx shadcn-ui@latest add ${dep}`);
+            console.warn(`Run: npx shadcn@latest add ${dep}`);
           }
         }
       }
