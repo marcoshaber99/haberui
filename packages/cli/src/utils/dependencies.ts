@@ -25,11 +25,6 @@ function execWithTimeout(command: string, timeoutMs = 60000): Promise<string> {
   });
 }
 
-// Check if shadcn is initialized
-async function isShadcnInitialized(): Promise<boolean> {
-  return fs.pathExists("components.json");
-}
-
 export async function installDependencies(
   component: Component,
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -37,65 +32,6 @@ export async function installDependencies(
 ): Promise<void> {
   const dependencies = component.dependencies || [];
   const devDependencies = component.devDependencies || [];
-
-  // Install registry dependencies
-  if (component.registryDependencies?.length) {
-    // Check if these are shadcn components
-    const shadcnDeps = component.registryDependencies.filter((dep) =>
-      isShadcnComponent(dep)
-    );
-
-    const haberDeps = component.registryDependencies.filter(
-      (dep) => !isShadcnComponent(dep)
-    );
-
-    // If we have shadcn dependencies, check if shadcn is initialized
-    if (shadcnDeps.length > 0) {
-      const hasShadcn = await isShadcnInitialized();
-
-      if (!hasShadcn) {
-        console.log(
-          "This component has shadcn/ui dependencies, but shadcn/ui is not initialized."
-        );
-        console.log(
-          "Please run 'npx shadcn@latest init' first, then try installing the component again."
-        );
-        console.log(
-          "Continuing with installation, but some dependencies may not be installed correctly."
-        );
-      } else {
-        // Install shadcn dependencies
-        for (const dep of shadcnDeps) {
-          console.log(`Installing shadcn dependency: ${dep}`);
-          try {
-            await execWithTimeout(`npx shadcn@latest add ${dep} --yes`, 120000);
-            console.log(`✓ Installed ${dep}`);
-          } catch (error) {
-            console.warn(error);
-            console.warn(
-              `⚠️ Failed to install shadcn dependency ${dep}. You may need to install it manually.`
-            );
-            console.warn(`Run: npx shadcn@latest add ${dep}`);
-          }
-        }
-      }
-    }
-
-    // Install haber dependencies
-    for (const dep of haberDeps) {
-      console.log(`Installing haber-ui dependency: ${dep}`);
-      try {
-        await execWithTimeout(`npx haber-cli add ${dep} --yes`, 120000);
-        console.log(`✓ Installed ${dep}`);
-      } catch (error) {
-        console.warn(error);
-        console.warn(
-          `⚠️ Failed to install haber-ui dependency ${dep}. You may need to install it manually.`
-        );
-        console.warn(`Run: npx haber-cli add ${dep}`);
-      }
-    }
-  }
 
   // Check package manager used in the project
   const packageManager = await detectPackageManager();
@@ -109,10 +45,11 @@ export async function installDependencies(
       console.log(`✓ Installed npm dependencies`);
     } catch (error) {
       console.warn(error);
-      console.warn(
-        `⚠️ Failed to install npm dependencies. You may need to install them manually.`
+      throw new Error(
+        `Failed to install npm dependencies. You may need to install them manually: ${dependencies.join(
+          ", "
+        )}`
       );
-      console.warn(`The required dependencies are: ${dependencies.join(", ")}`);
     }
   }
 
@@ -127,61 +64,13 @@ export async function installDependencies(
       console.log(`✓ Installed npm dev dependencies`);
     } catch (error) {
       console.warn(error);
-      console.warn(
-        `⚠️ Failed to install npm dev dependencies. You may need to install them manually.`
-      );
-      console.warn(
-        `The required dev dependencies are: ${devDependencies.join(", ")}`
+      throw new Error(
+        `Failed to install npm dev dependencies. You may need to install them manually: ${devDependencies.join(
+          ", "
+        )}`
       );
     }
   }
-}
-
-// Function to check if a component is from shadcn
-function isShadcnComponent(name: string): boolean {
-  // List of common shadcn components
-  const shadcnComponents = [
-    "accordion",
-    "alert",
-    "alert-dialog",
-    "aspect-ratio",
-    "avatar",
-    "badge",
-    "button",
-    "calendar",
-    "card",
-    "checkbox",
-    "collapsible",
-    "combobox",
-    "command",
-    "context-menu",
-    "dialog",
-    "dropdown-menu",
-    "form",
-    "hover-card",
-    "input",
-    "label",
-    "menubar",
-    "navigation-menu",
-    "popover",
-    "progress",
-    "radio-group",
-    "scroll-area",
-    "select",
-    "separator",
-    "sheet",
-    "skeleton",
-    "slider",
-    "switch",
-    "table",
-    "tabs",
-    "textarea",
-    "toast",
-    "toggle",
-    "tooltip",
-  ];
-
-  return shadcnComponents.includes(name);
 }
 
 async function detectPackageManager(): Promise<"npm" | "yarn" | "pnpm"> {
