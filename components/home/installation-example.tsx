@@ -33,7 +33,7 @@ export function InstallationExample() {
   }, []);
 
   return (
-    <div className="w-full max-w-2xl mx-auto px-4 py-12 mt-12">
+    <div className="w-full max-w-2xl mx-auto px-4">
       <motion.div
         className="relative"
         initial={{ opacity: 0, y: 10 }}

@@ -4,6 +4,8 @@
 
 # haber-ui
 
+![haber-ui](public/og.png)
+
 Modern React components for modern AI applications. Built with Tailwind CSS and shadcn/ui.
 
 Visit the [documentation](https://www.haberui.com/docs/installation) for more information.

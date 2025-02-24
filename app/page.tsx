@@ -1,6 +1,7 @@
 import { Nav } from "@/components/home/nav";
 import { Hero } from "@/components/home/hero";
 import { Footer } from "@/components/home/footer";
+import { InstallationExample } from "@/components/home/installation-example";
 
 export default function Home() {
   return (
@@ -11,7 +12,7 @@ export default function Home() {
           className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[1000px] rounded-full"
           style={{
             background:
-              "radial-gradient(circle, rgba(16,185,129,0.2) 0%, rgba(52,211,153,0.1) 25%, rgba(0,0,0,0) 70%)",
+              "radial-gradient(circle, rgba(56,189,248,0.2) 0%, rgba(96,165,250,0.1) 25%, rgba(0,0,0,0) 70%)",
           }}
         />
       </div>
@@ -22,8 +23,9 @@ export default function Home() {
       {/* Content */}
       <div className="relative flex min-h-screen flex-col">
         <Nav />
-        <main className="flex-1 flex flex-col w-full items-center justify-center">
+        <main className="flex-1 flex flex-col w-full items-center py-32">
           <Hero />
+          <InstallationExample />
         </main>
         <Footer />
       </div>
