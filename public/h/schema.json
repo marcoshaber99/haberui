@@ -8,7 +8,10 @@
     },
     "style": {
       "type": "string",
-      "enum": ["tailwind", "css"],
+      "enum": [
+        "tailwind",
+        "css"
+      ],
       "description": "The styling solution to use"
     },
     "tailwind": {
@@ -28,5 +31,11 @@
       "description": "URL of the component registry"
     }
   },
-  "required": ["style", "tailwind", "componentDir", "importPath", "registry"]
+  "required": [
+    "style",
+    "tailwind",
+    "componentDir",
+    "importPath",
+    "registry"
+  ]
 }
