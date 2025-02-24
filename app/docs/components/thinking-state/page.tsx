@@ -31,7 +31,7 @@ export default function ThinkingStatePage() {
           <div className="flex flex-col gap-8">
             <div className="space-y-3">
               <p className="text-sm font-medium">Pulse Variant (Default)</p>
-              <ThinkingState ariaLabel="Processing your request" />
+              <ThinkingState aria-label="Processing your request" />
             </div>
 
             <div className="space-y-3">

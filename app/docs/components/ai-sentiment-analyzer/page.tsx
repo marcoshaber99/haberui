@@ -3,7 +3,6 @@
 import React from "react";
 import { AISentimentAnalyzer } from "@/components/haber-ui/ai-sentiment-analyzer";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { CommandBox } from "@/components/ui/command-box";
 import { CodeBlock } from "@/components/ui/code-block";
 
 export default function AISentimentAnalyzerPage() {
@@ -115,14 +114,53 @@ export default function Example() {
         <h2 className="scroll-m-20 text-2xl font-semibold tracking-tight">
           Installation
         </h2>
-        <CommandBox command='npx shadcn@latest add "https://haberui.com/h/ai-sentiment-analyzer.json"' />
+        <CodeBlock
+          language="bash"
+          code={`npx shadcn@latest add "https://haberui.com/h/ai-sentiment-analyzer.json"`}
+        />
       </div>
 
       <div className="space-y-4">
         <h2 className="scroll-m-20 text-2xl font-semibold tracking-tight">
           Props
         </h2>
-        <div className="rounded-lg border">
+        {/* Mobile view - Cards */}
+        <div className="lg:hidden space-y-4">
+          {[
+            {
+              name: "onAnalyze",
+              type: "(text: string) => Promise<number>",
+              description: "Function that returns sentiment score (-1 to 1)",
+            },
+            {
+              name: "className",
+              type: "string",
+              description: "Additional CSS classes",
+            },
+            {
+              name: "showScore",
+              type: "boolean",
+              description: "Display raw sentiment score. Default: false",
+            },
+          ].map((prop) => (
+            <div key={prop.name} className="rounded-lg border p-4 space-y-2">
+              <div className="flex items-start justify-between gap-4">
+                <code className="rounded bg-muted px-1.5 py-0.5 text-sm font-mono">
+                  {prop.name}
+                </code>
+                <div className="text-sm text-muted-foreground font-mono">
+                  {prop.type}
+                </div>
+              </div>
+              <p className="text-sm text-muted-foreground">
+                {prop.description}
+              </p>
+            </div>
+          ))}
+        </div>
+
+        {/* Desktop view - Table */}
+        <div className="hidden lg:block rounded-lg border">
           <table className="w-full">
             <thead>
               <tr className="border-b bg-muted/50">
@@ -144,8 +182,7 @@ export default function Example() {
                   (text: string) =&gt; Promise&lt;number&gt;
                 </td>
                 <td className="p-4 text-sm text-muted-foreground">
-                  A function that takes the input text and returns a sentiment
-                  score between -1 (very negative) and 1 (very positive).
+                  Function that returns sentiment score (-1 to 1)
                 </td>
               </tr>
               <tr className="border-b">
@@ -158,8 +195,7 @@ export default function Example() {
                   string
                 </td>
                 <td className="p-4 text-sm text-muted-foreground">
-                  Additional CSS classes to apply to the component. Supports all
-                  Tailwind classes including colors.
+                  Additional CSS classes
                 </td>
               </tr>
               <tr className="border-b">
@@ -172,8 +208,7 @@ export default function Example() {
                   boolean
                 </td>
                 <td className="p-4 text-sm text-muted-foreground">
-                  When true, displays the raw sentiment score alongside the
-                  category. Defaults to false.
+                  Display raw sentiment score. Default: false
                 </td>
               </tr>
             </tbody>
