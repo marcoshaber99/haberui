@@ -23,7 +23,7 @@ export default function Home() {
       {/* Content */}
       <div className="relative flex min-h-screen flex-col">
         <Nav />
-        <main className="flex-1 flex flex-col w-full items-center py-32">
+        <main className="flex-1 flex flex-col w-full items-center py-24">
           <Hero />
           <InstallationExample />
         </main>
