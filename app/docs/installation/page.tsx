@@ -1,5 +1,7 @@
+// app/docs/installation/page.tsx
 import { CommandBox } from "@/components/ui/command-box";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { CodeBlock } from "@/components/ui/code-block";
 
 export default function InstallationPage() {
   return (
@@ -28,10 +30,6 @@ export default function InstallationPage() {
             A Next.js project with Tailwind CSS: haber-ui is built for Next.js
             and relies on Tailwind CSS for styling.
           </li>
-          <li>
-            shadcn-ui: Your project needs shadcn-ui installed and initialized,
-            as haber-ui components depend on it.
-          </li>
         </ul>
       </div>
 
@@ -43,11 +41,8 @@ export default function InstallationPage() {
           <li className="flex gap-2">
             <span>1.</span>
             <div className="flex-1">
-              <p>Set up shadcn-ui (if not already done)</p>
-              <p className="mt-2">
-                If you haven&apos;t initialized shadcn-ui in your project yet,
-                run this command:
-              </p>
+              <p>Install the HaberUI CLI</p>
+              <p className="mt-2">First, install the HaberUI CLI globally:</p>
               <Tabs defaultValue="npm" className="mt-2">
                 <TabsList>
                   <TabsTrigger value="npm">npm</TabsTrigger>
@@ -55,50 +50,72 @@ export default function InstallationPage() {
                   <TabsTrigger value="yarn">yarn</TabsTrigger>
                 </TabsList>
                 <TabsContent value="npm">
-                  <CommandBox command="npx shadcn@latest init" />
+                  <CommandBox command="npm install -g haber-cli" />
                 </TabsContent>
                 <TabsContent value="pnpm">
-                  <CommandBox command="pnpm dlx shadcn@latest init" />
+                  <CommandBox command="pnpm add -g haber-cli" />
                 </TabsContent>
                 <TabsContent value="yarn">
-                  <CommandBox command="yarn dlx shadcn-ui@latest init" />
+                  <CommandBox command="yarn global add haber-cli" />
                 </TabsContent>
               </Tabs>
               <p className="mt-2">
-                This sets up the necessary configuration for shadcn-ui in your
-                Next.js project.
+                Alternatively, you can use npx to run the CLI without installing
+                it:
               </p>
+              <CommandBox command="npx haber-cli" />
             </div>
           </li>
+
           <li className="flex gap-2">
             <span>2.</span>
             <div className="flex-1">
-              <p>Install haber-ui components</p>
+              <p>Initialize HaberUI in your project</p>
+              <p className="mt-2">Set up the configuration for your project:</p>
+              <CommandBox command="haber init" />
               <p className="mt-2">
-                Once shadcn-ui is ready, install haber-ui components like this:
+                This will ask you a few questions and create a haber.json file
+                in your project.
               </p>
-              <Tabs defaultValue="npm" className="mt-2">
-                <TabsList>
-                  <TabsTrigger value="npm">npm</TabsTrigger>
-                  <TabsTrigger value="pnpm">pnpm</TabsTrigger>
-                  <TabsTrigger value="yarn">yarn</TabsTrigger>
-                </TabsList>
-                <TabsContent value="npm">
-                  <CommandBox command='npx shadcn@latest add "https://haberui.com/h/ai-sentiment-analyzer.json"' />
-                </TabsContent>
-                <TabsContent value="pnpm">
-                  <CommandBox command='pnpm dlx shadcn@latest add "https://haberui.com/h/ai-sentiment-analyzer.json"' />
-                </TabsContent>
-                <TabsContent value="yarn">
-                  <CommandBox command='yarn dlx shadcn-ui@latest add "https://haberui.com/h/ai-sentiment-analyzer.json"' />
-                </TabsContent>
-              </Tabs>
+            </div>
+          </li>
+
+          <li className="flex gap-2">
+            <span>3.</span>
+            <div className="flex-1">
+              <p>Install HaberUI components</p>
+              <p className="mt-2">List available components:</p>
+              <CommandBox command="haber list" />
+              <p className="mt-2">Install a specific component:</p>
+              <CommandBox command="haber add thinking-state" />
               <p className="mt-2">
-                Replace the URL with the specific component you want to install.
+                The component will be installed to your project and any
+                dependencies will be automatically added.
               </p>
             </div>
           </li>
         </ol>
+      </div>
+
+      <div className="space-y-4">
+        <h2 className="text-2xl font-bold tracking-tight">Using Components</h2>
+        <p className="text-muted-foreground">
+          After installation, you can import and use the components in your
+          project:
+        </p>
+        <CodeBlock
+          language="tsx"
+          code={`import { ThinkingState } from "@/components/haber-ui/thinking-state";
+
+export default function MyComponent() {
+  return (
+    <ThinkingState 
+      variant="pulse" 
+      messages={["Processing data...", "Almost done..."]} 
+    />
+  );
+}`}
+        />
       </div>
     </div>
   );

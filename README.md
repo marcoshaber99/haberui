@@ -2,16 +2,27 @@
 
 ![haber-ui](public/og.png)
 
-Modern React components for modern AI applications. Built with Tailwind CSS and shadcn/ui.
+Modern React components for modern AI applications. Built with Tailwind CSS.
 
 Visit the [documentation](https://www.haberui.com/docs/installation) for more information.
 
 ## Install
 
 ```bash
-pnpm dlx shadcn@latest init
-pnpm dlx shadcn@latest add "https://haberui.com/h/[component-name].json"
+# Install the CLI
+npm install -g haber-cli
+
+# Initialize in your project
+haber init
+
+# Add components
+haber add thinking-state
 ```
+
+## Available Components
+
+- **ThinkingState**: A beautiful loading indicator with customizable messages and animations
+- **AISentimentAnalyzer**: A flexible sentiment analysis component that works with any backend service
 
 ## Contributing
 
