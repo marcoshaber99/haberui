@@ -1,3 +1,9 @@
 {
-  "pages": ["index", "ai-feedback-collector", "thinking-state"]
+  "pages": [
+    "index",
+    "ai-feedback-collector",
+    "thinking-state",
+    "ai-parameter-controls",
+    "token-counter"
+  ]
 }

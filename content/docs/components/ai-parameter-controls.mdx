@@ -1,0 +1,90 @@
+---
+title: AI Parameter Controls
+description: A clean, elegant UI for adjusting common AI model parameters with visual controls and preset configurations.
+---
+
+import {
+  BasicDemo,
+  HorizontalDemo,
+  CustomParametersDemo,
+  CustomPresetsDemo,
+  PropsTable,
+} from "@/components/demos/ai-parameter-controls-demos";
+
+## Installation
+
+```bash
+npx shadcn@latest add "https://haberui.com/h/ai-parameter-controls.json"
+```
+
+## Overview
+
+AI Parameter Controls provides a clean, intuitive interface for users to adjust AI model parameters like temperature, top_p, and max_tokens. It includes:
+
+- Visual sliders and inputs for each parameter
+- Helpful tooltips explaining parameter effects
+- Preset configurations for quick parameter sets
+- Responsive vertical and horizontal layouts
+- Reset controls to default values
+
+## Examples
+
+### Basic Usage
+
+<div className="not-prose my-6">
+  <BasicDemo />
+</div>
+
+### Horizontal Layout
+
+<div className="not-prose my-6">
+  <HorizontalDemo />
+</div>
+
+### Custom Parameters
+
+<div className="not-prose my-6">
+  <CustomParametersDemo />
+</div>
+
+### Custom Presets
+
+<div className="not-prose my-6">
+  <CustomPresetsDemo />
+</div>
+
+## Props
+
+<PropsTable />
+
+## Parameter Options
+
+Each parameter in the `parameters` array needs the following properties:
+
+```tsx
+interface AIParameter {
+  name: string; // Parameter name (temperature, top_p, etc.)
+  value: number; // Current value
+  min: number; // Minimum allowed value
+  max: number; // Maximum allowed value
+  step: number; // Step increment for sliders
+  description: string; // Helpful description for tooltips
+}
+```
+
+## Preset Configuration
+
+Presets allow users to quickly switch between parameter configurations:
+
+```tsx
+interface Preset {
+  name: string; // Preset name (e.g., "Creative", "Precise")
+  description: string; // Short description of the preset
+  parameters: {
+    // Parameter values for this preset
+    [key: string]: number;
+  };
+}
+```
+
+The component includes default presets, but you can provide your own to match your application's needs.

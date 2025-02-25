@@ -17,6 +17,35 @@
         "lucide-react"
       ],
       "devDependencies": []
+    },
+    {
+      "name": "ai-parameter-controls",
+      "version": "1.0.0",
+      "description": "AI Parameter Controls - A clean, elegant UI for adjusting common AI model parameters with visual controls, helpful tooltips, and preset configurations.",
+      "registryDependencies": [
+        "slider",
+        "input",
+        "button",
+        "tooltip",
+        "select"
+      ],
+      "dependencies": [
+        "lucide-react"
+      ],
+      "devDependencies": []
+    },
+    {
+      "name": "token-counter",
+      "version": "1.0.0",
+      "description": "Token Counter - A small, elegant UI component that counts tokens in text for AI applications, with visual indicators for approaching limits.",
+      "registryDependencies": [
+        "progress",
+        "tooltip"
+      ],
+      "dependencies": [
+        "lucide-react"
+      ],
+      "devDependencies": []
     }
   ]
 }

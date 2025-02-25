@@ -29,31 +29,3 @@ npx shadcn@latest add "https://haberui.com/h/ai-feedback-collector.json"
 ## Props
 
 <PropsTable />
-
-## Integration Example
-
-Here's how to integrate the AIFeedbackCollector with an AI chat:
-
-```tsx
-import { AIFeedbackCollector } from "@/components/haber-ui/ai-feedback-collector";
-
-export function ChatMessage({ message }) {
-  const handleFeedback = async (feedback) => {
-    await fetch("/api/feedback", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        messageId: message.id,
-        ...feedback,
-      }),
-    });
-  };
-
-  return (
-    <div className="space-y-2">
-      <div className="p-4 rounded-lg bg-muted">{message.content}</div>
-      <AIFeedbackCollector onFeedback={handleFeedback} allowComments={true} />
-    </div>
-  );
-}
-```

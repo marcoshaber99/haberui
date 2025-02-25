@@ -11,7 +11,7 @@ export const baseOptions: BaseLayoutProps = {
   githubUrl: "https://github.com/marcoshaber99/haberui",
   nav: {
     title: (
-      <span className="flex items-center gap-2 pl-3">
+      <span className="flex items-center gap-2">
         <Image src="/logo.svg" alt="haber-ui" width={12} height={12} />
         haber-ui
       </span>

@@ -40,4 +40,23 @@ export const components: ComponentDefinition[] = [
     dependencies: ["lucide-react"],
     devDependencies: [],
   },
+  {
+    name: "ai-parameter-controls",
+    path: path.join(
+      __dirname,
+      "../components/haber-ui/ai-parameter-controls.tsx"
+    ),
+    version: "1.0.0",
+    registryDependencies: ["slider", "input", "button", "tooltip", "select"],
+    dependencies: ["lucide-react"],
+    devDependencies: [],
+  },
+  {
+    name: "token-counter",
+    path: path.join(__dirname, "../components/haber-ui/token-counter.tsx"),
+    version: "1.0.0",
+    registryDependencies: ["progress", "tooltip"],
+    dependencies: ["lucide-react"],
+    devDependencies: [],
+  },
 ];
