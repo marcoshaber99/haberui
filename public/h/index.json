@@ -20,6 +20,16 @@
       "registryDependencies": [],
       "dependencies": [],
       "devDependencies": []
+    },
+    {
+      "name": "ai-feedback-collector",
+      "version": "1.0.0",
+      "description": "A flexible component for collecting user feedback on AI-generated content. Supports thumbs up/down reactions, optional comments, and custom styling.",
+      "registryDependencies": [],
+      "dependencies": [
+        "lucide-react"
+      ],
+      "devDependencies": []
     }
   ]
 }

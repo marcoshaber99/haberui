@@ -40,4 +40,15 @@ export const components: ComponentDefinition[] = [
     dependencies: [],
     devDependencies: [],
   },
+  {
+    name: "ai-feedback-collector",
+    path: path.join(
+      __dirname,
+      "../components/haber-ui/ai-feedback-collector.tsx"
+    ),
+    version: "1.0.0",
+    registryDependencies: [],
+    dependencies: ["lucide-react"],
+    devDependencies: [],
+  },
 ];

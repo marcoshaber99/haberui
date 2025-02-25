@@ -40,6 +40,11 @@ const navigation = {
       title: "Components",
       items: [
         {
+          title: "AIFeedbackCollector",
+          href: "/docs/components/ai-feedback-collector",
+          badge: "new",
+        },
+        {
           title: "Sentiment",
           href: "/docs/components/ai-sentiment-analyzer",
           badge: "new",
