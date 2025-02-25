@@ -8,8 +8,8 @@ import {
   HorizontalDemo,
   CustomParametersDemo,
   CustomPresetsDemo,
-  PropsTable,
 } from "@/components/demos/ai-parameter-controls-demos";
+import { TypeTable } from "fumadocs-ui/components/type-table";
 
 ## Installation
 
@@ -55,36 +55,113 @@ AI Parameter Controls provides a clean, intuitive interface for users to adjust 
 
 ## Props
 
-<PropsTable />
+<TypeTable
+  type={{
+    parameters: {
+      description: "Parameters to display (temperature, top_p, etc)",
+      type: "AIParameter[]",
+      required: true,
+    },
+    onParametersChange: {
+      description: "Called when parameters are changed",
+      type: "(parameters: AIParameter[]) => void",
+    },
+    presets: {
+      description: "Available presets",
+      type: "Preset[]",
+      default: "DEFAULT_PRESETS",
+    },
+    onPresetChange: {
+      description: "Called when a preset is selected",
+      type: "(preset: Preset) => void",
+    },
+    showReset: {
+      description: "Show the reset button",
+      type: "boolean",
+      default: "true",
+    },
+    showPresets: {
+      description: "Show the presets selector",
+      type: "boolean",
+      default: "true",
+    },
+    resetLabel: {
+      description: "Label for the reset button",
+      type: "string",
+      default: '"Reset to defaults"',
+    },
+    parameterClassName: {
+      description: "Custom class for the parameter container",
+      type: "string",
+    },
+    layout: {
+      description: "Layout direction",
+      type: '"horizontal" | "vertical"',
+      default: '"vertical"',
+    },
+    decimalPlaces: {
+      description: "Number of decimal places to display",
+      type: "number",
+      default: "1",
+    },
+  }}
+/>
 
-## Parameter Options
+## Parameter Type
 
-Each parameter in the `parameters` array needs the following properties:
+<TypeTable
+  type={{
+    name: {
+      description: "Parameter name (temperature, top_p, etc.)",
+      type: "string",
+      required: true,
+    },
+    value: {
+      description: "Current value",
+      type: "number",
+      required: true,
+    },
+    min: {
+      description: "Minimum allowed value",
+      type: "number",
+      required: true,
+    },
+    max: {
+      description: "Maximum allowed value",
+      type: "number",
+      required: true,
+    },
+    step: {
+      description: "Step increment for sliders",
+      type: "number",
+      required: true,
+    },
+    description: {
+      description: "Helpful description for tooltips",
+      type: "string",
+      required: true,
+    },
+  }}
+/>
 
-```tsx
-interface AIParameter {
-  name: string; // Parameter name (temperature, top_p, etc.)
-  value: number; // Current value
-  min: number; // Minimum allowed value
-  max: number; // Maximum allowed value
-  step: number; // Step increment for sliders
-  description: string; // Helpful description for tooltips
-}
-```
+## Preset Type
 
-## Preset Configuration
-
-Presets allow users to quickly switch between parameter configurations:
-
-```tsx
-interface Preset {
-  name: string; // Preset name (e.g., "Creative", "Precise")
-  description: string; // Short description of the preset
-  parameters: {
-    // Parameter values for this preset
-    [key: string]: number;
-  };
-}
-```
-
-The component includes default presets, but you can provide your own to match your application's needs.
+<TypeTable
+  type={{
+    name: {
+      description: 'Preset name (e.g., "Creative", "Precise")',
+      type: "string",
+      required: true,
+    },
+    description: {
+      description: "Short description of the preset",
+      type: "string",
+      required: true,
+    },
+    parameters: {
+      description: "Parameter values for this preset",
+      type: "{ [key: string]: number }",
+      required: true,
+    },
+  }}
+/>

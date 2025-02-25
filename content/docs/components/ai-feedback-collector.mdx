@@ -7,8 +7,8 @@ import {
   BasicDemo,
   CommentsDemo,
   CustomStyleDemo,
-  PropsTable,
 } from "@/components/demos/ai-feedback-collector-demos";
+import { TypeTable } from "fumadocs-ui/components/type-table";
 
 ## Installation
 
@@ -28,4 +28,42 @@ npx shadcn@latest add "https://haberui.com/h/ai-feedback-collector.json"
 
 ## Props
 
-<PropsTable />
+<TypeTable
+  type={{
+    onFeedback: {
+      description: "Function called when feedback is submitted",
+      type: '(feedback: { type: "positive" | "negative" | null; comment?: string }) => void | Promise<void>',
+    },
+    allowComments: {
+      description: "Allow users to add comments with their feedback",
+      type: "boolean",
+      default: "false",
+    },
+    promptText: {
+      description: "Text shown for the feedback prompt",
+      type: "string",
+      default: '"Was this response helpful?"',
+    },
+    thanksText: {
+      description: "Text shown after feedback is submitted",
+      type: "string",
+      default: '"Thanks for your feedback!"',
+    },
+    positiveIcon: {
+      description: "Custom icon for positive feedback (default: ThumbsUp)",
+      type: "React.ReactNode",
+    },
+    negativeIcon: {
+      description: "Custom icon for negative feedback (default: ThumbsDown)",
+      type: "React.ReactNode",
+    },
+    buttonClassName: {
+      description: "Custom classes for the buttons",
+      type: "string",
+    },
+    activeButtonClassName: {
+      description: "Custom classes for active (selected) buttons",
+      type: "string",
+    },
+  }}
+/>

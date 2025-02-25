@@ -9,8 +9,8 @@ import {
   PositionedDemo,
   TokenizerDemo,
   CustomTokenizerDemo,
-  PropsTable,
 } from "@/components/demos/token-counter-demos";
+import { TypeTable } from "fumadocs-ui/components/type-table";
 
 ## Installation
 
@@ -62,7 +62,59 @@ Token Counter provides a clean, simple interface for displaying token counts in 
 
 ## Props
 
-<PropsTable />
+<TypeTable
+  type={{
+    text: {
+      description: "The text to count tokens from",
+      type: "string",
+      required: true,
+    },
+    maxTokens: {
+      description: "Maximum token limit",
+      type: "number",
+      default: "4096",
+    },
+    tokenizer: {
+      description: "The tokenizer to use (defaults to GPT-3.5 approximation)",
+      type: '"gpt3" | "gpt4" | "claude" | "llama" | "custom"',
+      default: '"gpt3"',
+    },
+    customTokenCounter: {
+      description:
+        "Custom function to count tokens (used when tokenizer is 'custom')",
+      type: "(text: string) => number",
+    },
+    showWarning: {
+      description: "Show warning when approaching token limit",
+      type: "boolean",
+      default: "true",
+    },
+    warningThreshold: {
+      description: "Percentage of max tokens that triggers the warning state",
+      type: "number",
+      default: "0.85",
+    },
+    position: {
+      description: "Position of the counter",
+      type: '"top-right" | "top-left" | "bottom-right" | "bottom-left" | "inline"',
+      default: '"inline"',
+    },
+    showProgress: {
+      description: "Show progress bar",
+      type: "boolean",
+      default: "true",
+    },
+    label: {
+      description: "Label for token count",
+      type: "string",
+      default: '"tokens"',
+    },
+    progressClassName: {
+      description: "Custom class for progress bar",
+      type: "string",
+    },
+  }}
+/>
 
 ## Tokenization Notes
 

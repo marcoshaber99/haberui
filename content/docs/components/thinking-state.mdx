@@ -10,8 +10,8 @@ import {
   BounceVariantDemo,
   DynamicMessagesDemo,
   CompletionStateDemo,
-  PropsTable,
 } from "@/components/demos/thinking-state-demos";
+import { TypeTable } from "fumadocs-ui/components/type-table";
 
 ## Installation
 
@@ -39,4 +39,42 @@ npx shadcn@latest add "https://haberui.com/h/thinking-state.json"
 
 ## Props
 
-<PropsTable />
+<TypeTable
+  type={{
+    messages: {
+      description: "Array of messages or message generators to cycle through",
+      type: "(string | ((index: number) => string) | React.ReactNode)[]",
+      default: '["Thinking...", "Processing...", "Almost there..."]',
+    },
+    variant: {
+      description: "Animation variant",
+      type: '"pulse" | "dots" | "bars" | "bounce"',
+      default: '"pulse"',
+    },
+    mode: {
+      description: "How messages should cycle",
+      type: '"random" | "sequential"',
+      default: '"sequential"',
+    },
+    interval: {
+      description: "Time between message changes in ms",
+      type: "number",
+      default: "2000",
+    },
+    isComplete: {
+      description: "Whether the process is complete",
+      type: "boolean",
+      default: "false",
+    },
+    completionMessage: {
+      description: "Message to show when complete",
+      type: "string | ((index: number) => string) | React.ReactNode",
+      default: '"Done!"',
+    },
+    ariaLabel: {
+      description: "Accessible label for the loading state",
+      type: "string",
+      default: '"Loading indicator"',
+    },
+  }}
+/>
