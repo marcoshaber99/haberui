@@ -25,7 +25,7 @@ export function Hero() {
         </div>
         <div className="mt-4 sm:mt-8 flex flex-col sm:flex-row gap-4 sm:gap-6">
           <Link href="/docs">
-            <Button className="rounded-full w-full sm:w-auto">
+            <Button className="rounded-full w-full sm:w-auto cursor-pointer">
               Get started →
             </Button>
           </Link>
@@ -35,7 +35,7 @@ export function Hero() {
             rel="noopener noreferrer"
             className="inline-flex items-center justify-center gap-2 text-sm transition-colors hover:text-muted-foreground"
           >
-            <Github className="h-5 w-5" />
+            <Github className="size-5" />
             <span>GitHub</span>
           </a>
         </div>

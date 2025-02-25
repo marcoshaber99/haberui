@@ -22,17 +22,6 @@ type ComponentDefinition = {
 
 export const components: ComponentDefinition[] = [
   {
-    name: "ai-sentiment-analyzer",
-    path: path.join(
-      __dirname,
-      "../components/haber-ui/ai-sentiment-analyzer.tsx"
-    ),
-    version: "1.0.0",
-    registryDependencies: ["textarea", "button"],
-    dependencies: ["lucide-react"],
-    devDependencies: [],
-  },
-  {
     name: "thinking-state",
     path: path.join(__dirname, "../components/haber-ui/thinking-state.tsx"),
     version: "1.0.0",

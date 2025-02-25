@@ -1,0 +1,42 @@
+---
+title: Installation
+description: A quick guide to set up haber-ui in your Next.js project.
+---
+
+## Prerequisites
+
+haber-ui requires the following to be installed in your project:
+
+- [Tailwind CSS](https://tailwindcss.com/) v4
+- [shadcn/ui](https://ui.shadcn.com/) latest version
+
+## Steps
+
+1. Set up shadcn/ui (if not already done)
+
+```bash
+npx shadcn@latest init
+```
+
+2. Install haber-ui components
+
+```bash
+npx shadcn@latest add "https://haberui.com/h/thinking-state.json"
+```
+
+Replace with the specific component you want to install.
+
+3. Use the component in your application
+
+```tsx
+import { ThinkingState } from "@/components/haber-ui/thinking-state";
+
+export default function MyComponent() {
+  return (
+    <ThinkingState
+      variant="pulse"
+      messages={["Processing data...", "Almost done..."]}
+    />
+  );
+}
+```

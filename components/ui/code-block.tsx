@@ -1,66 +1,51 @@
+// components/ui/code-block.tsx
 "use client";
-
-import type React from "react";
-import { useEffect, useState } from "react";
-import Prism from "prismjs";
-import "./prism-night-owl.css";
-import "prismjs/components/prism-jsx";
-import "prismjs/components/prism-tsx";
-import "prismjs/components/prism-typescript";
-import "prismjs/components/prism-bash";
-import { cn } from "@/lib/utils";
 import { Check, Copy } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { useState } from "react";
+import { cn } from "@/lib/utils";
+import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
+// Import a different theme (this is just an example)
+import { vscDarkPlus } from "react-syntax-highlighter/dist/esm/styles/prism";
 
-interface CodeBlockProps extends React.HTMLAttributes<HTMLPreElement> {
+interface CodeBlockProps {
   code: string;
-  language: string;
+  language?: string;
+  className?: string;
 }
 
 export function CodeBlock({
   code,
-  language,
+  language = "tsx",
   className,
-  ...props
 }: CodeBlockProps) {
   const [copied, setCopied] = useState(false);
 
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      Prism.highlightAll();
-    }
-  }, [code, language]);
-
-  const copyToClipboard = async () => {
-    await navigator.clipboard.writeText(code);
+  const handleCopy = () => {
+    navigator.clipboard.writeText(code);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
 
   return (
-    <div className="group relative">
-      <pre
-        className={cn(
-          "p-4 rounded-md overflow-x-auto scrollbar-thin scrollbar-thumb-muted-foreground/20 scrollbar-track-transparent",
-          className
-        )}
-        {...props}
+    <div className={cn("relative group", className)}>
+      <SyntaxHighlighter
+        language={language}
+        style={vscDarkPlus} // Using a different theme here
+        customStyle={{
+          margin: 0,
+          borderRadius: "0.375rem",
+          fontSize: "0.875rem",
+        }}
       >
-        <code
-          className={`language-${language} inline-block min-w-full whitespace-pre`}
-        >
-          {code}
-        </code>
-      </pre>
-      <Button
-        variant="ghost"
-        size="icon"
-        className="absolute right-2 top-2 h-8 w-8 opacity-0 transition-opacity group-hover:opacity-100"
-        onClick={copyToClipboard}
+        {code}
+      </SyntaxHighlighter>
+      <button
+        onClick={handleCopy}
+        className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity p-2 rounded-md bg-background/90 text-muted-foreground hover:text-foreground"
+        aria-label="Copy code"
       >
         {copied ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
-        <span className="sr-only">Copy code</span>
-      </Button>
+      </button>
     </div>
   );
 }

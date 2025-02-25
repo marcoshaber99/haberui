@@ -1,3 +1,4 @@
+import { RootProvider } from "fumadocs-ui/provider";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
@@ -15,7 +16,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: "haber-ui - Modern React Components",
+    default: "haber-ui | React components for modern AI applications",
     template: "%s | haber-ui",
   },
   description:
@@ -36,7 +37,7 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
     url: "https://haberui.com",
-    title: "haber-ui - Modern React Components",
+    title: "haber-ui - React components for modern AI applications",
     description:
       "A collection of beautifully designed React components built with Tailwind CSS and shadcn/ui.",
     siteName: "haber-ui",
@@ -45,13 +46,13 @@ export const metadata: Metadata = {
         url: "/og.png",
         width: 1200,
         height: 630,
-        alt: "haber-ui - Modern React Components",
+        alt: "haber-ui - React components for modern AI applications",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "haber-ui - Modern React Components",
+    title: "haber-ui - React components for modern AI applications",
     description:
       "A collection of beautifully designed React components built with Tailwind CSS and shadcn/ui.",
     creator: "@marcohaber99",
@@ -72,6 +73,11 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          minHeight: "100vh",
+        }}
       >
         <ThemeProvider
           attribute="class"
@@ -79,7 +85,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          {children}
+          <RootProvider>{children}</RootProvider>
         </ThemeProvider>
       </body>
     </html>

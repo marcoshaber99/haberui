@@ -1,0 +1,83 @@
+---
+title: Thinking State
+description: A beautiful loading indicator with customizable messages and animations for AI applications.
+---
+
+import {
+  PulseVariantDemo,
+  DotsVariantDemo,
+  BarsVariantDemo,
+  BounceVariantDemo,
+  DynamicMessagesDemo,
+  CompletionStateDemo,
+  PropsTable,
+} from "@/components/demos/thinking-state-demos";
+
+## Installation
+
+Install the component using the CLI:
+
+```bash
+npx shadcn@latest add "https://haberui.com/h/thinking-state.json"
+```
+
+## Variants
+
+<div className="not-prose space-y-8 my-6">
+  <PulseVariantDemo />
+  <DotsVariantDemo />
+  <BarsVariantDemo />
+  <BounceVariantDemo />
+</div>
+
+## Advanced Features
+
+<div className="not-prose space-y-8 my-6">
+  <DynamicMessagesDemo />
+  <CompletionStateDemo />
+</div>
+
+## Props
+
+<PropsTable />
+
+## Integration Example
+
+Here's how to integrate the ThinkingState component in an AI chat interface:
+
+```tsx
+import { ThinkingState } from "@/components/haber-ui/thinking-state";
+import { useState } from "react";
+
+export function ChatInterface() {
+  const [isProcessing, setIsProcessing] = useState(false);
+
+  const handleSubmit = async (message) => {
+    setIsProcessing(true);
+    try {
+      // Process message with AI
+      await processWithAI(message);
+    } finally {
+      setIsProcessing(false);
+    }
+  };
+
+  return (
+    <div className="space-y-4">
+      <div className="h-[400px] overflow-y-auto">{/* Chat messages */}</div>
+
+      {isProcessing && (
+        <ThinkingState
+          messages={[
+            "Thinking...",
+            "Processing your request...",
+            "Generating response...",
+          ]}
+        />
+      )}
+
+      <form onSubmit={handleSubmit}>{/* Input field and submit button */}</form>
+    </div>
+  );
+}
+```

@@ -1,0 +1,63 @@
+---
+title: AI Feedback Collector
+description: A flexible component for collecting user feedback on AI-generated content.
+---
+
+import {
+  BasicDemo,
+  CommentsDemo,
+  CustomStyleDemo,
+  PropsTable,
+} from "@/components/demos/ai-feedback-collector-demos";
+
+# AI Feedback Collector
+
+A flexible component for collecting user feedback on AI-generated content. Supports thumbs up/down reactions, optional comments, and custom styling.
+
+## Installation
+
+Install the component using the CLI:
+
+```bash
+npx shadcn@latest add "https://haberui.com/h/ai-feedback-collector.json"
+```
+
+## Examples
+
+<div className="not-prose space-y-8 my-6">
+  <BasicDemo />
+  <CommentsDemo />
+  <CustomStyleDemo />
+</div>
+
+## Props
+
+<PropsTable />
+
+## Integration Example
+
+Here's how to integrate the AIFeedbackCollector with an AI chat:
+
+```tsx
+import { AIFeedbackCollector } from "@/components/haber-ui/ai-feedback-collector";
+
+export function ChatMessage({ message }) {
+  const handleFeedback = async (feedback) => {
+    await fetch("/api/feedback", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        messageId: message.id,
+        ...feedback,
+      }),
+    });
+  };
+
+  return (
+    <div className="space-y-2">
+      <div className="p-4 rounded-lg bg-muted">{message.content}</div>
+      <AIFeedbackCollector onFeedback={handleFeedback} allowComments={true} />
+    </div>
+  );
+}
+```

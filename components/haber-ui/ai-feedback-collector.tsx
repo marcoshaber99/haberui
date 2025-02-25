@@ -119,7 +119,7 @@ export const AIFeedbackCollector = React.forwardRef<
 
     const defaultButtonClass = cn(
       "inline-flex items-center justify-center rounded-md p-2 transition-colors",
-      "hover:bg-muted focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring",
+      "hover:bg-muted focus-visible:outline-hidden focus-visible:ring-1 focus-visible:ring-ring",
       buttonClassName
     );
 
@@ -188,12 +188,12 @@ export const AIFeedbackCollector = React.forwardRef<
                 value={comment}
                 onChange={(e) => setComment(e.target.value)}
                 placeholder="What could be improved?"
-                className="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+                className="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-xs transition-colors placeholder:text-muted-foreground focus-visible:outline-hidden focus-visible:ring-1 focus-visible:ring-ring"
                 disabled={isSubmitting}
               />
               <button
                 onClick={handleCommentSubmit}
-                className="inline-flex h-9 items-center justify-center rounded-md bg-primary px-3 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-1 disabled:pointer-events-none disabled:opacity-50"
+                className="inline-flex h-9 items-center justify-center rounded-md bg-primary px-3 text-sm font-medium text-primary-foreground shadow-sm transition-colors hover:bg-primary/90 focus-visible:outline-hidden focus-visible:ring-1 disabled:pointer-events-none disabled:opacity-50"
                 disabled={isSubmitting}
               >
                 {isSubmitting ? "Sending..." : "Send"}

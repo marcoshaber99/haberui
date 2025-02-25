@@ -27,7 +27,9 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "scripts/**/*.ts"
+    "scripts/**/*.ts",
+    "next.config.mjs",
+    "content/docs/components/thinking-state.mdx"
   ],
   "exclude": ["node_modules"]
 }

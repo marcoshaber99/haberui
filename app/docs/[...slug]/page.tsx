@@ -5,15 +5,16 @@ import {
   DocsTitle,
   DocsDescription,
 } from "fumadocs-ui/page";
+import { notFound } from "next/navigation";
 import defaultMdxComponents from "fumadocs-ui/mdx";
 import { metadataImage } from "@/lib/metadata";
 
-export default async function Page() {
-  // Get the index page from the source
-  const page = source.getPage([]);
-  if (!page) {
-    return <div>Documentation index not found</div>;
-  }
+export default async function Page(props: {
+  params: Promise<{ slug?: string[] }>;
+}) {
+  const params = await props.params;
+  const page = source.getPage(params.slug);
+  if (!page) notFound();
 
   const MDX = page.data.body;
 
@@ -27,9 +28,17 @@ export default async function Page() {
     </DocsPage>
   );
 }
-export async function generateMetadata() {
-  const page = source.getPage([]);
-  if (!page) return {};
+
+export async function generateStaticParams() {
+  return source.generateParams();
+}
+
+export async function generateMetadata(props: {
+  params: Promise<{ slug?: string[] }>;
+}) {
+  const params = await props.params;
+  const page = source.getPage(params.slug);
+  if (!page) notFound();
 
   return metadataImage.withImage(page.slugs, {
     title: page.data.title,

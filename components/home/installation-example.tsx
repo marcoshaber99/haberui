@@ -43,11 +43,11 @@ export function InstallationExample() {
         <div className="relative overflow-hidden rounded-md bg-gray-900 shadow-md">
           <div className="flex items-center justify-between px-3 py-1.5 bg-gray-800">
             <div className="flex space-x-1.5">
-              <div className="w-2 h-2 rounded-full bg-red-500"></div>
-              <div className="w-2 h-2 rounded-full bg-yellow-500"></div>
-              <div className="w-2 h-2 rounded-full bg-green-500"></div>
+              <div className="size-2 rounded-full bg-red-500"></div>
+              <div className="size-2 rounded-full bg-yellow-500"></div>
+              <div className="size-2 rounded-full bg-green-500"></div>
             </div>
-            <Terminal className="w-4 h-4 text-gray-400" />
+            <Terminal className="size-4 text-gray-400" />
           </div>
           <div className="p-3 font-mono text-xs sm:text-sm">
             <span className="select-none mr-1.5 text-green-400">$</span>
@@ -57,7 +57,7 @@ export function InstallationExample() {
         </div>
         <motion.button
           onClick={copyToClipboard}
-          className="absolute top-8 right-2 p-1.5 text-gray-400 hover:text-white transition-colors focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50 rounded"
+          className="absolute top-8 right-2 p-1.5 text-gray-400 hover:text-white transition-colors focus:outline-hidden focus:ring-2 focus:ring-green-500 focus:ring-opacity-50 rounded"
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
           aria-label="Copy to clipboard"

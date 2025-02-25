@@ -1,19 +1,6 @@
 {
   "components": [
     {
-      "name": "ai-sentiment-analyzer",
-      "version": "1.0.0",
-      "description": "",
-      "registryDependencies": [
-        "textarea",
-        "button"
-      ],
-      "dependencies": [
-        "lucide-react"
-      ],
-      "devDependencies": []
-    },
-    {
       "name": "thinking-state",
       "version": "1.0.0",
       "description": "Array of messages or message generators to cycle through",
