@@ -1,12 +1,24 @@
-import fs from "fs"; // For working with files
-import path from "path"; // For handling file paths
-import type { Schema } from "./registry-schema"; // The type that defines what our JSON should look like
-import { components } from "./registry-components"; // The list of components we want to add to our registry
+import fs from "fs";
+import path from "path";
+import type { Schema } from "./registry-schema";
+import { components } from "./registry-components";
 
-// Create the directory where we'll store our JSON files if it doesn't exist
+/**
+ * Extract description from component file using JSDoc comments
+ */
+function extractDescription(content: string): string {
+  // Try finding JSDoc for component, interface, or type
+  const jsDocMatch = content.match(/\/\*\*\s*([^*]*(?:\*(?!\/)[^*]*)*)\*\//s);
+  if (jsDocMatch && jsDocMatch[1]) {
+    return jsDocMatch[1].replace(/\s*\*\s*/g, " ").trim();
+  }
+  return "";
+}
+
+// Create the registry directory if it doesn't exist
 const registryDir = path.join(__dirname, "../public/h");
 if (!fs.existsSync(registryDir)) {
-  fs.mkdirSync(registryDir);
+  fs.mkdirSync(registryDir, { recursive: true });
 }
 
 // For each component in our list...
@@ -18,20 +30,23 @@ for (const component of components) {
   }
 
   try {
-    // Read the actual component code from its file
+    // Read the component code
     const content = fs.readFileSync(component.path, "utf8");
 
     // Get the last time this file was modified
     const stats = fs.statSync(component.path);
     const lastUpdated = stats.mtime.toISOString();
 
-    // Create the JSON schema for this component
+    // Extract a description
+    const description = extractDescription(content);
+
+    // Create the JSON schema
     const schema = {
       name: component.name,
       type: "registry:ui",
       version: component.version,
+      description,
       lastUpdated,
-      // These arrays can be empty or filled with dependencies
       registryDependencies: component.registryDependencies || [],
       dependencies: component.dependencies || [],
       devDependencies: component.devDependencies || [],
@@ -43,19 +58,20 @@ for (const component of components) {
       files: [
         {
           path: `${component.name}.tsx`,
-          content, // This is the actual component code we read earlier
+          content, // Component code
           type: "registry:ui",
         },
       ],
     } satisfies Schema;
 
-    // Write this JSON to a file named after the component
+    // Write the JSON file
     fs.writeFileSync(
       path.join(registryDir, `${component.name}.json`),
       JSON.stringify(schema, null, 2)
     );
+
+    console.log(`✓ Generated ${component.name}.json`);
   } catch (error) {
     console.error(`Error processing component ${component.name}:`, error);
-    continue;
   }
 }

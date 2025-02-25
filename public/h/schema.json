@@ -25,17 +25,12 @@
     "importPath": {
       "type": "string",
       "description": "Import alias for the components"
-    },
-    "registry": {
-      "type": "string",
-      "description": "URL of the component registry"
     }
   },
   "required": [
     "style",
     "tailwind",
     "componentDir",
-    "importPath",
-    "registry"
+    "importPath"
   ]
 }

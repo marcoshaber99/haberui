@@ -7,9 +7,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "build:registry": "tsx scripts/build-registry.ts",
+    "build:registry": "tsx scripts/build-registry.ts && tsx scripts/build-registry-index.ts",
     "sync:registry": "tsx scripts/sync-registry.ts",
-    "gen-cli": "tsx scripts/sync-registry.ts && tsx scripts/build-registry.ts && tsx scripts/build-registry-index.ts"
+    "gen-registry": "tsx scripts/sync-registry.ts && tsx scripts/build-registry.ts && tsx scripts/build-registry-index.ts"
   },
   "dependencies": {
     "@mdx-js/react": "^3.1.0",
@@ -43,7 +43,6 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "15.1.0",
-    "haber-cli": "link:packages/cli",
     "postcss": "^8",
     "tailwindcss": "^3.4.1",
     "tsx": "^4.19.3",

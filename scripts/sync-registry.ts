@@ -7,16 +7,20 @@ import { components } from "./registry-components";
  */
 function updateRegistryComponents() {
   const componentsDir = path.join(process.cwd(), "components", "haber-ui");
+
+  // Create a map of existing components by filename
   const existingComponents = new Map(
     components.map((c) => [path.basename(c.path), c])
   );
 
   const newComponents = [];
 
+  // Get all .tsx files in the components directory
   const files = fs
     .readdirSync(componentsDir)
     .filter((file) => file.endsWith(".tsx"));
 
+  // Find files that aren't already in the registry
   for (const file of files) {
     if (!existingComponents.has(file)) {
       const name = path.basename(file, ".tsx");
@@ -35,11 +39,14 @@ function updateRegistryComponents() {
     return;
   }
 
+  // Update the registry-components.ts file
   const registryPath = path.join(__dirname, "registry-components.ts");
   const content = fs.readFileSync(registryPath, "utf8");
 
+  // Find the position to insert the new components
   const lastComponentIndex = content.lastIndexOf("}");
 
+  // Format the new components as TypeScript code
   const newComponentsString = newComponents
     .map(
       (comp) => `  {
@@ -54,6 +61,7 @@ function updateRegistryComponents() {
     )
     .join(",\n");
 
+  // Insert the new components into the file
   const updatedContent =
     content.slice(0, lastComponentIndex + 1) +
     ",\n" +
@@ -61,7 +69,6 @@ function updateRegistryComponents() {
     "\n];";
 
   fs.writeFileSync(registryPath, updatedContent);
-
   console.log(`Added ${newComponents.length} new haber-ui components:`);
   console.log(newComponents.map((c) => c.name).join(", "));
 }
