@@ -43,13 +43,13 @@ export function DotsVariantDemo() {
   );
 }
 
-export function BarsVariantDemo() {
+export function WaveVariantDemo() {
   return (
     <TabDemo
-      title="Bars Variant"
+      title="Wave Variant"
       preview={
         <ThinkingState
-          variant="bars"
+          variant="wave"
           messages={[
             "Generating response...",
             "Training model...",
@@ -59,7 +59,7 @@ export function BarsVariantDemo() {
         />
       }
       code={`<ThinkingState
-  variant="bars"
+  variant="wave"
   messages={[
     "Generating response...",
     "Training model...",
@@ -99,18 +99,18 @@ export function ColorSchemesDemo() {
         <div className="flex flex-col gap-3">
           <ThinkingState variant="pulse" colorScheme="default" />
           <ThinkingState variant="pulse" colorScheme="blue" />
-          <ThinkingState variant="pulse" colorScheme="purple" />
-          <ThinkingState variant="pulse" colorScheme="green" />
-          <ThinkingState variant="pulse" colorScheme="amber" />
-          <ThinkingState variant="pulse" colorScheme="rose" />
+          <ThinkingState variant="dots" colorScheme="purple" />
+          <ThinkingState variant="dots" colorScheme="green" />
+          <ThinkingState variant="wave" colorScheme="amber" />
+          <ThinkingState variant="wave" colorScheme="rose" />
         </div>
       }
       code={`<ThinkingState variant="pulse" colorScheme="default" />
 <ThinkingState variant="pulse" colorScheme="blue" />
-<ThinkingState variant="pulse" colorScheme="purple" />
-<ThinkingState variant="pulse" colorScheme="green" />
-<ThinkingState variant="pulse" colorScheme="amber" />
-<ThinkingState variant="pulse" colorScheme="rose" />`}
+<ThinkingState variant="dots" colorScheme="purple" />
+<ThinkingState variant="dots" colorScheme="green" />
+<ThinkingState variant="wave" colorScheme="amber" />
+<ThinkingState variant="wave" colorScheme="rose" />`}
     />
   );
 }
@@ -224,7 +224,7 @@ export function ChatIntegrationDemo() {
             </div>
             <div className="p-3 rounded-lg bg-background">
               <ThinkingState
-                variant="bars"
+                variant="wave"
                 colorScheme="blue"
                 messages={[
                   "Reading data...",
@@ -240,7 +240,7 @@ export function ChatIntegrationDemo() {
       }
       code={`<div className="p-3 rounded-lg bg-background">
   <ThinkingState 
-    variant="bars" 
+    variant="wave" 
     colorScheme="blue"
     messages={[
       "Reading data...",
@@ -267,7 +267,7 @@ export function PropsTable() {
         },
         variant: {
           description: "Animation variant",
-          type: '"pulse" | "dots" | "bars" | "bounce"',
+          type: '"pulse" | "dots" | "wave" | "bounce"',
           default: '"pulse"',
         },
         size: {

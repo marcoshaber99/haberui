@@ -7,7 +7,7 @@
 import * as React from "react";
 import { cn } from "@/lib/utils";
 import { cva, type VariantProps } from "class-variance-authority";
-import { motion } from "motion/react";
+import { motion, AnimatePresence } from "motion/react";
 
 const thinkingStateVariants = cva(
   "flex items-center text-muted-foreground/80 transition-colors",
@@ -16,7 +16,7 @@ const thinkingStateVariants = cva(
       variant: {
         pulse: "",
         dots: "",
-        bars: "",
+        wave: "", // Renamed from "bars" to "wave"
         bounce: "",
       },
       size: {
@@ -115,10 +115,10 @@ export const ThinkingState = React.forwardRef<
       messages[0]
     );
     const [currentIndex, setCurrentIndex] = React.useState(0);
-    const [isTransitioning, setIsTransitioning] = React.useState(false);
-    const [longestMessage, setLongestMessage] = React.useState("");
 
     // Find the longest message for width calculation
+    const [longestMessage, setLongestMessage] = React.useState("");
+
     React.useEffect(() => {
       const allMessages = [...messages, completionMessage];
       let longest = "";
@@ -154,8 +154,6 @@ export const ThinkingState = React.forwardRef<
       }
 
       const updateMessage = () => {
-        setIsTransitioning(true);
-
         setTimeout(() => {
           if (mode === "random") {
             let nextIndex;
@@ -170,14 +168,26 @@ export const ThinkingState = React.forwardRef<
             setCurrentIndex(nextIndex);
             setCurrentMessage(messages[nextIndex]);
           }
-
-          setIsTransitioning(false);
         }, 200);
       };
 
       const timer = setInterval(updateMessage, interval);
       return () => clearInterval(timer);
     }, [messages, mode, interval, currentIndex, isComplete, completionMessage]);
+
+    // Get element size based on size prop
+    const getElementSize = () => {
+      switch (size) {
+        case "sm":
+          return { barWidth: 1, barHeight: 12, gap: 1.5 };
+        case "lg":
+          return { barWidth: 2, barHeight: 20, gap: 2.5 };
+        default: // md
+          return { barWidth: 1.5, barHeight: 16, gap: 2 };
+      }
+    };
+
+    const { barWidth, barHeight, gap } = getElementSize();
 
     return (
       <div
@@ -203,24 +213,20 @@ export const ThinkingState = React.forwardRef<
               {[...Array(3)].map((_, i) => (
                 <motion.div
                   key={i}
-                  className={cn(
-                    "size-2 rounded-full bg-current mx-0.5 first:ml-0 last:mr-0"
-                  )}
+                  className="size-2 rounded-full bg-current mx-0.5 first:ml-0 last:mr-0"
                   initial={{ opacity: 1 }}
-                  animate={
-                    !isComplete
-                      ? {
-                          opacity: [1, 0.4, 1],
+                  animate={isComplete ? {} : { opacity: [1, 0.4, 1] }}
+                  transition={
+                    isComplete
+                      ? {}
+                      : {
+                          duration: 1.5,
+                          repeat: Infinity,
+                          repeatType: "loop",
+                          ease: "easeInOut",
+                          delay: i * 0.2,
                         }
-                      : { opacity: 1 }
                   }
-                  transition={{
-                    duration: 1.5,
-                    times: [0, 0.5, 1],
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                    delay: i * 0.2,
-                  }}
                 />
               ))}
             </>
@@ -231,75 +237,72 @@ export const ThinkingState = React.forwardRef<
               {[...Array(3)].map((_, i) => (
                 <motion.div
                   key={i}
-                  className={cn(
-                    "size-2 rounded-full bg-current mx-0.5 first:ml-0 last:mr-0"
-                  )}
+                  className="size-2 rounded-full bg-current mx-0.5 first:ml-0 last:mr-0"
                   initial={{ y: 0 }}
-                  animate={
-                    !isComplete
-                      ? {
-                          y: [0, -4, 0],
+                  animate={isComplete ? {} : { y: [0, -4, 0] }}
+                  transition={
+                    isComplete
+                      ? {}
+                      : {
+                          duration: 1.4,
+                          repeat: Infinity,
+                          repeatType: "loop",
+                          ease: "easeInOut",
+                          delay: i * 0.2,
                         }
-                      : { y: 0 }
                   }
-                  transition={{
-                    duration: 1.4,
-                    times: [0, 0.5, 1],
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                    delay: i * 0.2,
-                  }}
                 />
               ))}
             </>
           )}
 
-          {variant === "bars" && (
-            <>
-              {[...Array(3)].map((_, i) => (
+          {variant === "wave" && ( // Updated from "bars" to "wave"
+            <div className="flex items-center" style={{ gap: `${gap}px` }}>
+              {/* Create 5 bars with different heights in a wave pattern */}
+              {[0.4, 0.7, 1, 0.7, 0.4].map((scale, i) => (
                 <motion.div
                   key={i}
-                  className={cn(
-                    "h-4 w-1 rounded-full bg-current mx-0.5 first:ml-0 last:mr-0"
-                  )}
-                  initial={{ scaleY: 1 }}
+                  className="bg-current rounded-full"
+                  style={{
+                    width: `${barWidth}px`,
+                    height: `${barHeight * scale}px`,
+                    originY: "center",
+                  }}
+                  initial={{ scaleY: scale }}
                   animate={
-                    !isComplete
-                      ? {
-                          scaleY: [1, 0.4, 1],
-                          transformOrigin: "center bottom",
+                    isComplete
+                      ? { scaleY: scale }
+                      : {
+                          scaleY: [scale, scale * 1.8, scale],
                         }
-                      : { scaleY: 1 }
                   }
                   transition={{
-                    duration: 1.5,
-                    times: [0, 0.5, 1], // Control the timing more precisely
+                    duration: 1.2,
                     repeat: Infinity,
+                    repeatType: "loop",
                     ease: "easeInOut",
-                    delay: i * 0.2,
+                    // Create a wave effect by staggering the animations
+                    delay: (i * 0.15) % 0.75,
                   }}
                 />
               ))}
-            </>
+            </div>
           )}
 
           {variant === "bounce" && (
             <motion.div
-              className={cn("size-4 rounded-full bg-current")}
-              initial={{ y: 0 }}
-              animate={
-                !isComplete
-                  ? {
-                      y: [0, -10, 0],
+              className="size-4 rounded-full bg-current"
+              animate={isComplete ? {} : { y: [-8, 0] }}
+              transition={
+                isComplete
+                  ? {}
+                  : {
+                      duration: 0.5,
+                      repeat: Infinity,
+                      repeatType: "reverse",
+                      ease: "easeOut",
                     }
-                  : { y: 0 }
               }
-              transition={{
-                duration: 0.8,
-                times: [0, 0.5, 1],
-                repeat: Infinity,
-                ease: "easeOut",
-              }}
             />
           )}
         </div>
@@ -309,18 +312,21 @@ export const ThinkingState = React.forwardRef<
           className="relative overflow-hidden min-w-28"
           data-slot="message-container"
         >
-          {/* Current visible message */}
-          <motion.div
-            className={cn("font-medium", messageClassName)}
-            initial={{ opacity: 1 }}
-            animate={{ opacity: isTransitioning ? 0 : 1 }}
-            transition={{ duration: 0.3 }}
-            aria-live="polite"
-            aria-atomic="true"
-            data-slot="message"
-          >
-            {resolveMessage(currentMessage, currentIndex)}
-          </motion.div>
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={String(currentIndex) + (isComplete ? "complete" : "")}
+              className={cn("font-medium", messageClassName)}
+              initial={{ opacity: 0, y: 5 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -5 }}
+              transition={{ duration: 0.2 }}
+              aria-live="polite"
+              aria-atomic="true"
+              data-slot="message"
+            >
+              {resolveMessage(currentMessage, currentIndex)}
+            </motion.div>
+          </AnimatePresence>
 
           {/* Hidden element for width measurement */}
           <div

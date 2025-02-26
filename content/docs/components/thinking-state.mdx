@@ -6,7 +6,7 @@ description: A loading indicator with message cycling for AI applications.
 import {
   PulseVariantDemo,
   DotsVariantDemo,
-  BarsVariantDemo,
+  WaveVariantDemo,
   BounceVariantDemo,
   ColorSchemesDemo,
   SizesDemo,
@@ -18,18 +18,59 @@ import {
 
 ## Installation
 
+1. Install the component:
+
 ```bash
 npx shadcn@latest add "https://haberui.com/h/thinking-state.json"
 ```
 
-**Note**: This component uses the Motion library for animations. It will be automatically installed as a dependency when using the command above.
+**Note**: This component uses the Motion library for animations. It will be automatically installed as a dependency when using the command above but you can also install it manually with:
+
+```bash
+npm install motion
+```
+
+## Overview
+
+A polished indicator for loading and thinking states with:
+
+- Multiple animation variants
+- Cycling messages
+- Customizable colors and sizes
+- Accessibility features
+- Completion state support
 
 ## Animation Variants
 
-<div className="not-prose space-y-8 my-6">
+### Pulse (Default)
+
+Simple pulsing dots for a subtle indication.
+
+<div className="not-prose my-6">
   <PulseVariantDemo />
+</div>
+
+### Dots
+
+Bouncing dots for a more playful animation.
+
+<div className="not-prose my-6">
   <DotsVariantDemo />
-  <BarsVariantDemo />
+</div>
+
+### Wave
+
+Elegant audio waveform style animation.
+
+<div className="not-prose my-6">
+  <WaveVariantDemo />
+</div>
+
+### Bounce
+
+Single bouncing element for a minimal aesthetic.
+
+<div className="not-prose my-6">
   <BounceVariantDemo />
 </div>
 
@@ -70,3 +111,4 @@ npx shadcn@latest add "https://haberui.com/h/thinking-state.json"
 ## Props
 
 <PropsTable />
+```
