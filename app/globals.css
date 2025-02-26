@@ -137,37 +137,6 @@
   }
 }
 
-/* ThinkingState Animations */
-@keyframes thinking-pulse {
-  0%,
-  100% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.4;
-  }
-}
-
-@keyframes thinking-bounce {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-4px);
-  }
-}
-
-@keyframes thinking-scale {
-  0%,
-  100% {
-    transform: scaleY(1);
-  }
-  50% {
-    transform: scaleY(0.4);
-  }
-}
-
 @layer utilities {
   .animation-delay-200 {
     animation-delay: 200ms;

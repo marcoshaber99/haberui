@@ -26,7 +26,7 @@ export const components: ComponentDefinition[] = [
     path: path.join(__dirname, "../components/haber-ui/thinking-state.tsx"),
     version: "1.0.0",
     registryDependencies: [],
-    dependencies: ["class-variance-authority"],
+    dependencies: ["class-variance-authority", "motion"],
     devDependencies: [],
   },
   {

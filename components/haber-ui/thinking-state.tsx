@@ -7,6 +7,7 @@
 import * as React from "react";
 import { cn } from "@/lib/utils";
 import { cva, type VariantProps } from "class-variance-authority";
+import { motion } from "motion/react";
 
 const thinkingStateVariants = cva(
   "flex items-center text-muted-foreground/80 transition-colors",
@@ -200,17 +201,26 @@ export const ThinkingState = React.forwardRef<
           {variant === "pulse" && (
             <>
               {[...Array(3)].map((_, i) => (
-                <div
+                <motion.div
                   key={i}
                   className={cn(
-                    "size-2 rounded-full bg-current mx-0.5 first:ml-0 last:mr-0",
-                    !isComplete &&
-                      "animate-[thinking-pulse_1.5s_ease-in-out_infinite]",
-                    {
-                      "animation-delay-200": i === 1,
-                      "animation-delay-400": i === 2,
-                    }
+                    "size-2 rounded-full bg-current mx-0.5 first:ml-0 last:mr-0"
                   )}
+                  initial={{ opacity: 1 }}
+                  animate={
+                    !isComplete
+                      ? {
+                          opacity: [1, 0.4, 1],
+                        }
+                      : { opacity: 1 }
+                  }
+                  transition={{
+                    duration: 1.5,
+                    times: [0, 0.5, 1],
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                    delay: i * 0.2,
+                  }}
                 />
               ))}
             </>
@@ -219,17 +229,26 @@ export const ThinkingState = React.forwardRef<
           {variant === "dots" && (
             <>
               {[...Array(3)].map((_, i) => (
-                <div
+                <motion.div
                   key={i}
                   className={cn(
-                    "size-2 rounded-full bg-current mx-0.5 first:ml-0 last:mr-0",
-                    !isComplete &&
-                      "animate-[thinking-bounce_1.4s_ease-in-out_infinite]",
-                    {
-                      "animation-delay-200": i === 1,
-                      "animation-delay-400": i === 2,
-                    }
+                    "size-2 rounded-full bg-current mx-0.5 first:ml-0 last:mr-0"
                   )}
+                  initial={{ y: 0 }}
+                  animate={
+                    !isComplete
+                      ? {
+                          y: [0, -4, 0],
+                        }
+                      : { y: 0 }
+                  }
+                  transition={{
+                    duration: 1.4,
+                    times: [0, 0.5, 1],
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                    delay: i * 0.2,
+                  }}
                 />
               ))}
             </>
@@ -238,28 +257,49 @@ export const ThinkingState = React.forwardRef<
           {variant === "bars" && (
             <>
               {[...Array(3)].map((_, i) => (
-                <div
+                <motion.div
                   key={i}
                   className={cn(
-                    "h-4 w-1 rounded-full bg-current mx-0.5 first:ml-0 last:mr-0",
-                    !isComplete &&
-                      "animate-[thinking-scale_1.5s_ease-in-out_infinite]",
-                    {
-                      "animation-delay-200": i === 1,
-                      "animation-delay-400": i === 2,
-                    }
+                    "h-4 w-1 rounded-full bg-current mx-0.5 first:ml-0 last:mr-0"
                   )}
+                  initial={{ scaleY: 1 }}
+                  animate={
+                    !isComplete
+                      ? {
+                          scaleY: [1, 0.4, 1],
+                          transformOrigin: "center bottom",
+                        }
+                      : { scaleY: 1 }
+                  }
+                  transition={{
+                    duration: 1.5,
+                    times: [0, 0.5, 1], // Control the timing more precisely
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                    delay: i * 0.2,
+                  }}
                 />
               ))}
             </>
           )}
 
           {variant === "bounce" && (
-            <div
-              className={cn(
-                "size-4 rounded-full bg-current",
-                !isComplete && "animate-bounce"
-              )}
+            <motion.div
+              className={cn("size-4 rounded-full bg-current")}
+              initial={{ y: 0 }}
+              animate={
+                !isComplete
+                  ? {
+                      y: [0, -10, 0],
+                    }
+                  : { y: 0 }
+              }
+              transition={{
+                duration: 0.8,
+                times: [0, 0.5, 1],
+                repeat: Infinity,
+                ease: "easeOut",
+              }}
             />
           )}
         </div>
@@ -270,18 +310,17 @@ export const ThinkingState = React.forwardRef<
           data-slot="message-container"
         >
           {/* Current visible message */}
-          <div
-            className={cn(
-              "font-medium transition-opacity duration-300",
-              isTransitioning ? "opacity-0" : "opacity-100",
-              messageClassName
-            )}
+          <motion.div
+            className={cn("font-medium", messageClassName)}
+            initial={{ opacity: 1 }}
+            animate={{ opacity: isTransitioning ? 0 : 1 }}
+            transition={{ duration: 0.3 }}
             aria-live="polite"
             aria-atomic="true"
             data-slot="message"
           >
             {resolveMessage(currentMessage, currentIndex)}
-          </div>
+          </motion.div>
 
           {/* Hidden element for width measurement */}
           <div
