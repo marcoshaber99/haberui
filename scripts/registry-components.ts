@@ -48,4 +48,12 @@ export const components: ComponentDefinition[] = [
     dependencies: ["lucide-react", "class-variance-authority"],
     devDependencies: [],
   },
+  {
+    name: "subscription-card",
+    path: path.join(__dirname, "../components/haber-ui/subscription-card.tsx"),
+    version: "1.0.0",
+    registryDependencies: ["card", "progress"],
+    dependencies: ["lucide-react", "class-variance-authority"],
+    devDependencies: [],
+  },
 ];

@@ -32,6 +32,20 @@
         "class-variance-authority"
       ],
       "devDependencies": []
+    },
+    {
+      "name": "subscription-card",
+      "version": "1.0.0",
+      "description": "Subscription Card - A sleek, modern card for displaying subscription status with elegant glow effects for SaaS AI applications.",
+      "registryDependencies": [
+        "card",
+        "progress"
+      ],
+      "dependencies": [
+        "lucide-react",
+        "class-variance-authority"
+      ],
+      "devDependencies": []
     }
   ]
 }

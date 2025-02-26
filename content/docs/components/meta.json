@@ -3,6 +3,7 @@
     "index",
     "ai-feedback-collector",
     "thinking-state",
-    "feature-toggle"
+    "feature-toggle",
+    "subscription-card"
   ]
 }
