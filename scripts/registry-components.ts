@@ -26,7 +26,7 @@ export const components: ComponentDefinition[] = [
     path: path.join(__dirname, "../components/haber-ui/thinking-state.tsx"),
     version: "1.0.0",
     registryDependencies: [],
-    dependencies: [],
+    dependencies: ["class-variance-authority"],
     devDependencies: [],
   },
   {
@@ -37,26 +37,15 @@ export const components: ComponentDefinition[] = [
     ),
     version: "1.0.0",
     registryDependencies: [],
-    dependencies: ["lucide-react"],
+    dependencies: ["lucide-react", "class-variance-authority"],
     devDependencies: [],
   },
   {
-    name: "ai-parameter-controls",
-    path: path.join(
-      __dirname,
-      "../components/haber-ui/ai-parameter-controls.tsx"
-    ),
+    name: "feature-toggle",
+    path: path.join(__dirname, "../components/haber-ui/feature-toggle.tsx"),
     version: "1.0.0",
-    registryDependencies: ["slider", "input", "button", "tooltip", "select"],
-    dependencies: ["lucide-react"],
-    devDependencies: [],
-  },
-  {
-    name: "token-counter",
-    path: path.join(__dirname, "../components/haber-ui/token-counter.tsx"),
-    version: "1.0.0",
-    registryDependencies: ["progress", "tooltip"],
-    dependencies: ["lucide-react"],
+    registryDependencies: [],
+    dependencies: ["lucide-react", "class-variance-authority"],
     devDependencies: [],
   },
 ];

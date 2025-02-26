@@ -5,8 +5,6 @@ description: A quick guide to set up haber-ui in your Next.js project.
 
 import { CodeBlock } from "@/components/ui/code-block";
 
-import { Tab, Tabs } from "fumadocs-ui/components/tabs";
-
 ## Prerequisites
 
 haber-ui requires the following to be installed in your project:
@@ -17,12 +15,9 @@ haber-ui requires the following to be installed in your project:
 
 1. Set up shadcn/ui (if not already done)
 
-<Tabs items={["pnpm", "npm", "yarn", "bun"]}>
-  <Tab value="pnpm">```bash pnpm dlx shadcn@latest init ```</Tab>
-  <Tab value="npm">```bash npx shadcn@latest init ```</Tab>
-  <Tab value="yarn">```bash npx shadcn@latest init ```</Tab>
-  <Tab value="bun">```bash bunx --bun shadcn@latest init ```</Tab>
-</Tabs>
+```bash
+npx shadcn@latest init
+```
 
 2. Install haber-ui components
 

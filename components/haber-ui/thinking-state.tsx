@@ -1,28 +1,89 @@
+/**
+ * ThinkingState - A customizable, animated indicator for loading/thinking states
+ * with support for message cycling and completion states.
+ */
 "use client";
 
 import * as React from "react";
 import { cn } from "@/lib/utils";
+import { cva, type VariantProps } from "class-variance-authority";
 
-export type ThinkingStateVariant = "pulse" | "dots" | "bars" | "bounce";
-export type ThinkingStateMode = "random" | "sequential";
+const thinkingStateVariants = cva(
+  "flex items-center text-muted-foreground/80 transition-colors",
+  {
+    variants: {
+      variant: {
+        pulse: "",
+        dots: "",
+        bars: "",
+        bounce: "",
+      },
+      size: {
+        sm: "text-xs",
+        md: "text-sm",
+        lg: "text-base",
+      },
+      colorScheme: {
+        default: "",
+        blue: "text-blue-500",
+        purple: "text-purple-500",
+        green: "text-green-500",
+        amber: "text-amber-500",
+        rose: "text-rose-500",
+      },
+    },
+    defaultVariants: {
+      variant: "pulse",
+      size: "md",
+      colorScheme: "default",
+    },
+  }
+);
 
 type MessageItem = string | ((index: number) => string) | React.ReactNode;
 
-interface ThinkingStateProps extends React.HTMLAttributes<HTMLDivElement> {
-  /** Array of messages or message generators to cycle through */
+export interface ThinkingStateProps
+  extends React.HTMLAttributes<HTMLDivElement>,
+    Omit<VariantProps<typeof thinkingStateVariants>, "color"> {
+  /**
+   * Array of messages or message generators to cycle through
+   */
   messages?: MessageItem[];
-  /** Animation variant */
-  variant?: ThinkingStateVariant;
-  /** How messages should cycle */
-  mode?: ThinkingStateMode;
-  /** Time between message changes in ms */
+
+  /**
+   * How messages should cycle
+   */
+  mode?: "random" | "sequential";
+
+  /**
+   * Time between message changes in ms
+   */
   interval?: number;
-  /** Whether the process is complete */
+
+  /**
+   * Whether the process is complete
+   */
   isComplete?: boolean;
-  /** Message to show when complete */
+
+  /**
+   * Message to show when complete
+   */
   completionMessage?: MessageItem;
-  /** Accessible label for the loading state */
+
+  /**
+   * Accessible label for the loading indicator
+   */
   ariaLabel?: string;
+
+  /**
+   * Classes to apply to the animation container
+   */
+  animationClassName?: string;
+
+  /**
+   * Classes to apply to the message text
+   */
+  messageClassName?: string;
 }
 
 const defaultMessages = ["Thinking...", "Processing...", "Almost there..."];
@@ -35,11 +96,16 @@ export const ThinkingState = React.forwardRef<
     {
       messages = defaultMessages,
       variant = "pulse",
+      size = "md",
+      colorScheme = "default",
       mode = "sequential",
       interval = 2000,
       isComplete = false,
       completionMessage = "Done!",
       className,
+      animationClassName,
+      messageClassName,
+      ariaLabel,
       ...props
     },
     ref
@@ -49,6 +115,26 @@ export const ThinkingState = React.forwardRef<
     );
     const [currentIndex, setCurrentIndex] = React.useState(0);
     const [isTransitioning, setIsTransitioning] = React.useState(false);
+    const [longestMessage, setLongestMessage] = React.useState("");
+
+    // Find the longest message for width calculation
+    React.useEffect(() => {
+      const allMessages = [...messages, completionMessage];
+      let longest = "";
+
+      allMessages.forEach((msg) => {
+        const resolvedMsg = typeof msg === "function" ? msg(0) : msg;
+        const msgStr = React.isValidElement(resolvedMsg)
+          ? "XXXXXXXXXXXXX" // Placeholder for React elements
+          : String(resolvedMsg);
+
+        if (msgStr.length > longest.length) {
+          longest = msgStr;
+        }
+      });
+
+      setLongestMessage(longest);
+    }, [messages, completionMessage]);
 
     const resolveMessage = React.useCallback(
       (message: MessageItem, index: number): React.ReactNode => {
@@ -63,7 +149,7 @@ export const ThinkingState = React.forwardRef<
     React.useEffect(() => {
       if (isComplete) {
         setCurrentMessage(completionMessage);
-        return;
+        return () => {};
       }
 
       const updateMessage = () => {
@@ -75,6 +161,7 @@ export const ThinkingState = React.forwardRef<
             do {
               nextIndex = Math.floor(Math.random() * messages.length);
             } while (nextIndex === currentIndex && messages.length > 1);
+
             setCurrentIndex(nextIndex);
             setCurrentMessage(messages[nextIndex]);
           } else {
@@ -95,30 +182,35 @@ export const ThinkingState = React.forwardRef<
       <div
         ref={ref}
         className={cn(
-          "flex items-center gap-3 text-muted-foreground/80",
+          thinkingStateVariants({ variant, size, colorScheme }),
           className
         )}
         role="status"
-        aria-label={props.ariaLabel || "Loading indicator"}
+        aria-label={ariaLabel || "Loading indicator"}
+        data-state={isComplete ? "complete" : "loading"}
+        data-variant={variant}
         {...props}
       >
-        <div className="flex items-center gap-1" aria-hidden="true">
+        {/* Animation dots container */}
+        <div
+          className={cn("flex items-center mr-3", animationClassName)}
+          aria-hidden="true"
+          data-slot="animation"
+        >
           {variant === "pulse" && (
             <>
               {[...Array(3)].map((_, i) => (
                 <div
                   key={i}
                   className={cn(
-                    "size-2 rounded-full bg-current",
-                    !isComplete && "animate-[pulse_1.5s_ease-in-out_infinite]",
+                    "size-2 rounded-full bg-current mx-0.5 first:ml-0 last:mr-0",
+                    !isComplete &&
+                      "animate-[thinking-pulse_1.5s_ease-in-out_infinite]",
                     {
-                      "animation-delay-[200ms]": i === 1,
-                      "animation-delay-[400ms]": i === 2,
+                      "animation-delay-200": i === 1,
+                      "animation-delay-400": i === 2,
                     }
                   )}
-                  style={{
-                    animationName: !isComplete ? "thinking-pulse" : undefined,
-                  }}
                 />
               ))}
             </>
@@ -130,16 +222,14 @@ export const ThinkingState = React.forwardRef<
                 <div
                   key={i}
                   className={cn(
-                    "size-2 rounded-full bg-current",
-                    !isComplete && "animate-[bounce_1.4s_ease-in-out_infinite]",
+                    "size-2 rounded-full bg-current mx-0.5 first:ml-0 last:mr-0",
+                    !isComplete &&
+                      "animate-[thinking-bounce_1.4s_ease-in-out_infinite]",
                     {
-                      "animation-delay-[200ms]": i === 1,
-                      "animation-delay-[400ms]": i === 2,
+                      "animation-delay-200": i === 1,
+                      "animation-delay-400": i === 2,
                     }
                   )}
-                  style={{
-                    animationName: !isComplete ? "thinking-bounce" : undefined,
-                  }}
                 />
               ))}
             </>
@@ -151,16 +241,14 @@ export const ThinkingState = React.forwardRef<
                 <div
                   key={i}
                   className={cn(
-                    "h-4 w-1 rounded-full bg-current",
-                    !isComplete && "animate-[scale_1.5s_ease-in-out_infinite]",
+                    "h-4 w-1 rounded-full bg-current mx-0.5 first:ml-0 last:mr-0",
+                    !isComplete &&
+                      "animate-[thinking-scale_1.5s_ease-in-out_infinite]",
                     {
-                      "animation-delay-[200ms]": i === 1,
-                      "animation-delay-[400ms]": i === 2,
+                      "animation-delay-200": i === 1,
+                      "animation-delay-400": i === 2,
                     }
                   )}
-                  style={{
-                    animationName: !isComplete ? "thinking-scale" : undefined,
-                  }}
                 />
               ))}
             </>
@@ -176,39 +264,36 @@ export const ThinkingState = React.forwardRef<
           )}
         </div>
 
-        <span
-          className={cn(
-            "text-sm font-medium transition-opacity duration-300",
-            isTransitioning ? "opacity-0" : "opacity-100"
-          )}
-          aria-live="polite"
-          aria-atomic="true"
+        {/* Message container with stable width */}
+        <div
+          className="relative overflow-hidden min-w-28"
+          data-slot="message-container"
         >
-          {resolveMessage(currentMessage, currentIndex)}
-        </span>
+          {/* Current visible message */}
+          <div
+            className={cn(
+              "font-medium transition-opacity duration-300",
+              isTransitioning ? "opacity-0" : "opacity-100",
+              messageClassName
+            )}
+            aria-live="polite"
+            aria-atomic="true"
+            data-slot="message"
+          >
+            {resolveMessage(currentMessage, currentIndex)}
+          </div>
+
+          {/* Hidden element for width measurement */}
+          <div
+            className="invisible absolute h-0 top-0 whitespace-nowrap"
+            aria-hidden="true"
+          >
+            {longestMessage}
+          </div>
+        </div>
       </div>
     );
   }
 );
 
 ThinkingState.displayName = "ThinkingState";
-
-// Add styles to document
-if (typeof document !== "undefined") {
-  const style = document.createElement("style");
-  style.textContent = `
-    @keyframes thinking-pulse {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.4; }
-    }
-    @keyframes thinking-bounce {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-4px); }
-    }
-    @keyframes thinking-scale {
-      0%, 100% { transform: scaleY(1); }
-      50% { transform: scaleY(0.4); }
-    }
-  `;
-  document.head.appendChild(style);
-}

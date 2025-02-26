@@ -3,7 +3,6 @@
     "index",
     "ai-feedback-collector",
     "thinking-state",
-    "ai-parameter-controls",
-    "token-counter"
+    "feature-toggle"
   ]
 }

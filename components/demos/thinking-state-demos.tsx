@@ -1,8 +1,9 @@
-// components/demos/thinking-state-demos.tsx
 "use client";
-import React from "react";
+
+import React, { useState, useEffect } from "react";
 import { ThinkingState } from "@/components/haber-ui/thinking-state";
 import { TabDemo } from "@/components/demos/demo-factory";
+import { TypeTable } from "fumadocs-ui/components/type-table";
 
 export function PulseVariantDemo() {
   return (
@@ -21,7 +22,7 @@ export function DotsVariantDemo() {
       preview={
         <ThinkingState
           variant="dots"
-          className="text-blue-500"
+          colorScheme="blue"
           messages={[
             "Loading data...",
             "Crunching numbers...",
@@ -31,7 +32,7 @@ export function DotsVariantDemo() {
       }
       code={`<ThinkingState
   variant="dots"
-  className="text-blue-500"
+  colorScheme="blue"
   messages={[
     "Loading data...",
     "Crunching numbers...",
@@ -90,6 +91,48 @@ export function BounceVariantDemo() {
   );
 }
 
+export function ColorSchemesDemo() {
+  return (
+    <TabDemo
+      title="Color Schemes"
+      preview={
+        <div className="flex flex-col gap-3">
+          <ThinkingState variant="pulse" colorScheme="default" />
+          <ThinkingState variant="pulse" colorScheme="blue" />
+          <ThinkingState variant="pulse" colorScheme="purple" />
+          <ThinkingState variant="pulse" colorScheme="green" />
+          <ThinkingState variant="pulse" colorScheme="amber" />
+          <ThinkingState variant="pulse" colorScheme="rose" />
+        </div>
+      }
+      code={`<ThinkingState variant="pulse" colorScheme="default" />
+<ThinkingState variant="pulse" colorScheme="blue" />
+<ThinkingState variant="pulse" colorScheme="purple" />
+<ThinkingState variant="pulse" colorScheme="green" />
+<ThinkingState variant="pulse" colorScheme="amber" />
+<ThinkingState variant="pulse" colorScheme="rose" />`}
+    />
+  );
+}
+
+export function SizesDemo() {
+  return (
+    <TabDemo
+      title="Size Variants"
+      preview={
+        <div className="flex flex-col gap-3">
+          <ThinkingState size="sm" variant="dots" />
+          <ThinkingState size="md" variant="dots" />
+          <ThinkingState size="lg" variant="dots" />
+        </div>
+      }
+      code={`<ThinkingState size="sm" variant="dots" />
+<ThinkingState size="md" variant="dots" />
+<ThinkingState size="lg" variant="dots" />`}
+    />
+  );
+}
+
 export function DynamicMessagesDemo() {
   return (
     <TabDemo
@@ -121,109 +164,156 @@ export function DynamicMessagesDemo() {
 }
 
 export function CompletionStateDemo() {
+  const [isComplete, setIsComplete] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setIsComplete(true), 3000);
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
     <TabDemo
       title="Completion State"
       preview={
-        <ThinkingState
-          isComplete
-          completionMessage="Successfully loaded!"
-          className="text-green-500"
-        />
+        <div className="space-y-3">
+          <div className="flex gap-2 items-center">
+            <button
+              onClick={() => setIsComplete(!isComplete)}
+              className="px-3 py-1 text-xs rounded bg-secondary"
+            >
+              Toggle completion
+            </button>
+            <span className="text-sm text-muted-foreground">
+              {isComplete ? "Complete" : "Processing..."}
+            </span>
+          </div>
+          <ThinkingState
+            isComplete={isComplete}
+            completionMessage="Successfully loaded!"
+            colorScheme="green"
+          />
+        </div>
       }
-      code={`<ThinkingState
-  isComplete
+      code={`// In your component
+const [isComplete, setIsComplete] = useState(false);
+
+// Toggle completion state or set it based on your process
+// setIsComplete(true);
+
+<ThinkingState
+  isComplete={isComplete}
   completionMessage="Successfully loaded!"
-  className="text-green-500"
+  colorScheme="green"
 />`}
+    />
+  );
+}
+
+export function ChatIntegrationDemo() {
+  return (
+    <TabDemo
+      title="Chat Integration"
+      preview={
+        <div className="border rounded-lg p-4 bg-card">
+          <div className="flex flex-col gap-3 max-w-md">
+            <div className="p-3 rounded-lg bg-background text-sm">
+              Hello! How can I help you today?
+            </div>
+            <div className="p-3 rounded-lg bg-primary/10 text-sm ml-auto">
+              Can you analyze this data and create a visualization?
+            </div>
+            <div className="p-3 rounded-lg bg-background">
+              <ThinkingState
+                variant="bars"
+                colorScheme="blue"
+                messages={[
+                  "Reading data...",
+                  "Analyzing patterns...",
+                  "Preparing visualization...",
+                  "Almost finished...",
+                ]}
+                size="sm"
+              />
+            </div>
+          </div>
+        </div>
+      }
+      code={`<div className="p-3 rounded-lg bg-background">
+  <ThinkingState 
+    variant="bars" 
+    colorScheme="blue"
+    messages={[
+      "Reading data...",
+      "Analyzing patterns...",
+      "Preparing visualization...",
+      "Almost finished..."
+    ]}
+    size="sm"
+  />
+</div>`}
     />
   );
 }
 
 export function PropsTable() {
   return (
-    <div className="space-y-6 rounded-lg border p-6">
-      <div className="space-y-2">
-        <h3 className="font-semibold text-sm">messages</h3>
-        <p className="text-sm text-muted-foreground">
-          <span className="font-mono text-xs">
-            (string | ((index: number) =&gt; string) | ReactNode)[]
-          </span>
-        </p>
-        <p className="text-sm">
-          Messages to cycle through. Can be strings, functions, or React
-          components.
-        </p>
-      </div>
-
-      <div className="space-y-2">
-        <h3 className="font-semibold text-sm">variant</h3>
-        <p className="text-sm text-muted-foreground">
-          <span className="font-mono text-xs">
-            &quot;pulse&quot; | &quot;dots&quot; | &quot;bars&quot; |
-            &quot;bounce&quot;
-          </span>
-        </p>
-        <p className="text-sm">Animation style. Default: pulse</p>
-      </div>
-
-      <div className="space-y-2">
-        <h3 className="font-semibold text-sm">mode</h3>
-        <p className="text-sm text-muted-foreground">
-          <span className="font-mono text-xs">
-            &quot;random&quot; | &quot;sequential&quot;
-          </span>
-        </p>
-        <p className="text-sm">Message cycling order. Default: sequential</p>
-      </div>
-
-      <div className="space-y-2">
-        <h3 className="font-semibold text-sm">interval</h3>
-        <p className="text-sm text-muted-foreground">
-          <span className="font-mono text-xs">number</span>
-        </p>
-        <p className="text-sm">
-          Time between message changes in ms. Default: 2000
-        </p>
-      </div>
-
-      <div className="space-y-2">
-        <h3 className="font-semibold text-sm">isComplete</h3>
-        <p className="text-sm text-muted-foreground">
-          <span className="font-mono text-xs">boolean</span>
-        </p>
-        <p className="text-sm">Show completion state. Default: false</p>
-      </div>
-
-      <div className="space-y-2">
-        <h3 className="font-semibold text-sm">completionMessage</h3>
-        <p className="text-sm text-muted-foreground">
-          <span className="font-mono text-xs">
-            string | ((index: number) =&gt; string) | ReactNode
-          </span>
-        </p>
-        <p className="text-sm">
-          Message to show when complete. Default: &quot;Done!&quot;
-        </p>
-      </div>
-
-      <div className="space-y-2">
-        <h3 className="font-semibold text-sm">ariaLabel</h3>
-        <p className="text-sm text-muted-foreground">
-          <span className="font-mono text-xs">string</span>
-        </p>
-        <p className="text-sm">
-          Screen reader label. Default: &quot;Loading indicator&quot;
-        </p>
-      </div>
-
-      <div className="space-y-2">
-        <h3 className="font-semibold text-sm">className</h3>
-        <p className="text-sm text-muted-foreground">
-          <span className="font-mono text-xs">string</span>
-        </p>
-        <p className="text-sm">Additional CSS classes</p>
-      </div>
-    </div>
+    <TypeTable
+      type={{
+        messages: {
+          description:
+            "Array of messages or message generators to cycle through",
+          type: "(string | ((index: number) => string) | React.ReactNode)[]",
+          default: '["Thinking...", "Processing...", "Almost there..."]',
+        },
+        variant: {
+          description: "Animation variant",
+          type: '"pulse" | "dots" | "bars" | "bounce"',
+          default: '"pulse"',
+        },
+        size: {
+          description: "Size variant",
+          type: '"sm" | "md" | "lg"',
+          default: '"md"',
+        },
+        colorScheme: {
+          description: "Color theme for the indicator",
+          type: '"default" | "blue" | "purple" | "green" | "amber" | "rose"',
+          default: '"default"',
+        },
+        mode: {
+          description: "How messages should cycle",
+          type: '"random" | "sequential"',
+          default: '"sequential"',
+        },
+        interval: {
+          description: "Time between message changes in ms",
+          type: "number",
+          default: "2000",
+        },
+        isComplete: {
+          description: "Whether the process is complete",
+          type: "boolean",
+          default: "false",
+        },
+        completionMessage: {
+          description: "Message to show when complete",
+          type: "string | ((index: number) => string) | React.ReactNode",
+          default: '"Done!"',
+        },
+        animationClassName: {
+          description: "Classes to apply to the animation container",
+          type: "string",
+        },
+        messageClassName: {
+          description: "Classes to apply to the message text",
+          type: "string",
+        },
+        ariaLabel: {
+          description: "Accessible label for the loading indicator",
+          type: "string",
+          default: '"Loading indicator"',
+        },
+      }}
+    />
   );
 }

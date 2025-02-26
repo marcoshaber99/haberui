@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { Github } from "lucide-react";
 import { Button } from "@/components/ui/button";
-
 export function Hero() {
   return (
     <section className="w-full flex flex-col items-center px-4 py-8 sm:py-12">

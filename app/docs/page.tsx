@@ -8,9 +8,6 @@ import {
 import defaultMdxComponents from "fumadocs-ui/mdx";
 import { TypeTable } from "fumadocs-ui/components/type-table";
 import { metadataImage } from "@/lib/metadata";
-import { DynamicCodeBlock } from "fumadocs-ui/components/dynamic-codeblock";
-import { Tab, Tabs } from "fumadocs-ui/components/tabs";
-import { Pre, CodeBlock } from "fumadocs-ui/components/codeblock";
 
 export default async function Page() {
   // Get the index page from the source
@@ -25,11 +22,6 @@ export default async function Page() {
   const customMdxComponents = {
     ...defaultMdxComponents,
     TypeTable,
-    DynamicCodeBlock,
-    Tab,
-    Tabs,
-    Pre,
-    CodeBlock,
   };
 
   return (

@@ -1,0 +1,155 @@
+---
+title: Feature Toggle
+description: A sleek, modern toggle button for enabling/disabling AI features with an elegant glowing effect.
+---
+
+import {
+  BasicDemo,
+  ColorsDemo,
+  SizesDemo,
+  VariantsDemo,
+  GroupDemo,
+  InputIntegrationDemo,
+  PropsTable,
+} from "@/components/demos/feature-toggle-demos";
+import { TypeTable } from "fumadocs-ui/components/type-table";
+
+## Installation
+
+```bash
+npx shadcn@latest add "https://haberui.com/h/feature-toggle.json"
+```
+
+## Examples
+
+### Basic Usage
+
+<div className="not-prose my-6">
+  <BasicDemo />
+</div>
+
+### Color Variants
+
+<div className="not-prose my-6">
+  <ColorsDemo />
+</div>
+
+### Size Variants
+
+<div className="not-prose my-6">
+  <SizesDemo />
+</div>
+
+### Style Variants
+
+<div className="not-prose my-6">
+  <VariantsDemo />
+</div>
+
+### Toggle Group
+
+<div className="not-prose my-6">
+  <GroupDemo />
+</div>
+
+### Input Integration
+
+<div className="not-prose my-6">
+  <InputIntegrationDemo />
+</div>
+
+## Props
+
+<PropsTable />
+
+## Integration Example
+
+Here's how to integrate the Feature Toggle with a chat interface:
+
+```tsx
+import { useState } from "react";
+import { FeatureToggle } from "@/components/haber-ui/feature-toggle";
+import { Search, Sparkles } from "lucide-react";
+
+export function AIChat() {
+  const [webSearch, setWebSearch] = useState(false);
+  const [deepResearch, setDeepResearch] = useState(false);
+  const [message, setMessage] = useState("");
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    // Access the features in your submission handler
+    console.log(
+      `Sending message with features - Web Search: ${webSearch}, Deep Research: ${deepResearch}`
+    );
+    console.log(`Message: ${message}`);
+
+    // Reset message
+    setMessage("");
+  };
+
+  return (
+    <div className="rounded-lg border p-4 bg-background">
+      <div className="space-y-4">
+        <div className="h-80 overflow-y-auto p-2 rounded border border-muted">
+          {/* Chat messages would go here */}
+          <div className="p-3 text-sm text-muted-foreground text-center">
+            Start a new conversation
+          </div>
+        </div>
+
+        <form onSubmit={handleSubmit}>
+          <div className="flex gap-2 mb-2">
+            <FeatureToggle
+              active={webSearch}
+              onActiveChange={setWebSearch}
+              icon={<Search className="size-4" />}
+              size="sm"
+            >
+              Web Search
+            </FeatureToggle>
+
+            <FeatureToggle
+              active={deepResearch}
+              onActiveChange={setDeepResearch}
+              icon={<Sparkles className="size-4" />}
+              colorScheme="purple"
+              size="sm"
+            >
+              Deep Research
+            </FeatureToggle>
+          </div>
+
+          <div className="flex gap-2">
+            <input
+              type="text"
+              value={message}
+              onChange={(e) => setMessage(e.target.value)}
+              placeholder="Type your message..."
+              className="flex-1 rounded-md border px-3 py-2"
+            />
+            <button
+              type="submit"
+              className="px-4 py-2 bg-primary text-primary-foreground rounded-md"
+            >
+              Send
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  );
+}
+```
+
+## Styling Notes
+
+The glowing effect is achieved using a combination of:
+
+- Text color adjustments
+- Subtle background colors
+- Border glow effects
+- Shadow effects with low opacity for the neon glow
+
+The component automatically adapts these styles for both light and dark modes, ensuring it looks great in any context.

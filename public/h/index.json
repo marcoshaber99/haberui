@@ -3,9 +3,11 @@
     {
       "name": "thinking-state",
       "version": "1.0.0",
-      "description": "Array of messages or message generators to cycle through",
+      "description": "ThinkingState - A customizable, animated indicator for loading/thinking states with support for message cycling and completion states.",
       "registryDependencies": [],
-      "dependencies": [],
+      "dependencies": [
+        "class-variance-authority"
+      ],
       "devDependencies": []
     },
     {
@@ -14,36 +16,19 @@
       "description": "A flexible component for collecting user feedback on AI-generated content. Supports thumbs up/down reactions, optional comments, and custom styling.",
       "registryDependencies": [],
       "dependencies": [
-        "lucide-react"
+        "lucide-react",
+        "class-variance-authority"
       ],
       "devDependencies": []
     },
     {
-      "name": "ai-parameter-controls",
+      "name": "feature-toggle",
       "version": "1.0.0",
-      "description": "AI Parameter Controls - A clean, elegant UI for adjusting common AI model parameters with visual controls, helpful tooltips, and preset configurations.",
-      "registryDependencies": [
-        "slider",
-        "input",
-        "button",
-        "tooltip",
-        "select"
-      ],
+      "description": "Feature Toggle - A sleek, modern toggle button for enabling/disabling AI features with an elegant glowing effect when active.",
+      "registryDependencies": [],
       "dependencies": [
-        "lucide-react"
-      ],
-      "devDependencies": []
-    },
-    {
-      "name": "token-counter",
-      "version": "1.0.0",
-      "description": "Token Counter - A small, elegant UI component that counts tokens in text for AI applications, with visual indicators for approaching limits.",
-      "registryDependencies": [
-        "progress",
-        "tooltip"
-      ],
-      "dependencies": [
-        "lucide-react"
+        "lucide-react",
+        "class-variance-authority"
       ],
       "devDependencies": []
     }

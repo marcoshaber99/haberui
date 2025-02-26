@@ -1,6 +1,6 @@
 ---
 title: Thinking State
-description: A beautiful loading indicator with customizable messages and animations for AI applications.
+description: A loading indicator with message cycling for AI applications.
 ---
 
 import {
@@ -8,20 +8,21 @@ import {
   DotsVariantDemo,
   BarsVariantDemo,
   BounceVariantDemo,
+  ColorSchemesDemo,
+  SizesDemo,
   DynamicMessagesDemo,
   CompletionStateDemo,
+  ChatIntegrationDemo,
+  PropsTable,
 } from "@/components/demos/thinking-state-demos";
-import { TypeTable } from "fumadocs-ui/components/type-table";
 
 ## Installation
-
-Install the component using the CLI:
 
 ```bash
 npx shadcn@latest add "https://haberui.com/h/thinking-state.json"
 ```
 
-## Variants
+## Animation Variants
 
 <div className="not-prose space-y-8 my-6">
   <PulseVariantDemo />
@@ -30,51 +31,127 @@ npx shadcn@latest add "https://haberui.com/h/thinking-state.json"
   <BounceVariantDemo />
 </div>
 
+## Customization
+
+### Color Schemes
+
+<div className="not-prose my-6">
+  <ColorSchemesDemo />
+</div>
+
+### Size Variants
+
+<div className="not-prose my-6">
+  <SizesDemo />
+</div>
+
 ## Advanced Features
 
-<div className="not-prose space-y-8 my-6">
+### Dynamic Messages
+
+<div className="not-prose my-6">
   <DynamicMessagesDemo />
+</div>
+
+### Completion State
+
+<div className="not-prose my-6">
   <CompletionStateDemo />
+</div>
+
+### Chat Integration
+
+<div className="not-prose my-6">
+  <ChatIntegrationDemo />
 </div>
 
 ## Props
 
-<TypeTable
-  type={{
-    messages: {
-      description: "Array of messages or message generators to cycle through",
-      type: "(string | ((index: number) => string) | React.ReactNode)[]",
-      default: '["Thinking...", "Processing...", "Almost there..."]',
-    },
-    variant: {
-      description: "Animation variant",
-      type: '"pulse" | "dots" | "bars" | "bounce"',
-      default: '"pulse"',
-    },
-    mode: {
-      description: "How messages should cycle",
-      type: '"random" | "sequential"',
-      default: '"sequential"',
-    },
-    interval: {
-      description: "Time between message changes in ms",
-      type: "number",
-      default: "2000",
-    },
-    isComplete: {
-      description: "Whether the process is complete",
-      type: "boolean",
-      default: "false",
-    },
-    completionMessage: {
-      description: "Message to show when complete",
-      type: "string | ((index: number) => string) | React.ReactNode",
-      default: '"Done!"',
-    },
-    ariaLabel: {
-      description: "Accessible label for the loading state",
-      type: "string",
-      default: '"Loading indicator"',
-    },
-  }}
-/>
+<PropsTable />
+
+## Usage Example
+
+```tsx
+import { useState } from "react";
+import { ThinkingState } from "@/components/haber-ui/thinking-state";
+import { cn } from "@/lib/utils";
+
+function AIChat() {
+  const [messages, setMessages] = useState([
+    { role: "assistant", content: "How can I help you today?" },
+  ]);
+  const [input, setInput] = useState("");
+  const [isThinking, setIsThinking] = useState(false);
+
+  async function handleSubmit(e) {
+    e.preventDefault();
+    if (!input.trim()) return;
+
+    // Add user message
+    setMessages((prev) => [...prev, { role: "user", content: input }]);
+    setInput("");
+
+    // Show thinking state
+    setIsThinking(true);
+
+    // Simulate API call
+    setTimeout(() => {
+      setMessages((prev) => [
+        ...prev,
+        {
+          role: "assistant",
+          content: "Here's my response...",
+        },
+      ]);
+      setIsThinking(false);
+    }, 3000);
+  }
+
+  return (
+    <div className="border p-4 rounded-lg">
+      <div className="flex flex-col gap-3 mb-4 h-80 overflow-y-auto">
+        {messages.map((message, i) => (
+          <div
+            key={i}
+            className={cn(
+              "p-3 rounded-lg text-sm",
+              message.role === "user" ? "ml-auto bg-primary/10" : "bg-card"
+            )}
+          >
+            {message.content}
+          </div>
+        ))}
+
+        {isThinking && (
+          <div className="p-3 rounded-lg bg-card">
+            <ThinkingState
+              variant="bars"
+              colorScheme="blue"
+              messages={["Thinking...", "Processing...", "Analyzing..."]}
+              size="sm"
+            />
+          </div>
+        )}
+      </div>
+
+      <form onSubmit={handleSubmit} className="flex gap-2">
+        <input
+          type="text"
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
+          placeholder="Type a message..."
+          className="flex-1 rounded border p-2"
+          disabled={isThinking}
+        />
+        <button
+          type="submit"
+          className="px-4 py-2 bg-primary text-primary-foreground rounded"
+          disabled={isThinking}
+        >
+          Send
+        </button>
+      </form>
+    </div>
+  );
+}
+```

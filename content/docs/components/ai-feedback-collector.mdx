@@ -6,64 +6,104 @@ description: A component for collecting user feedback on AI-generated content.
 import {
   BasicDemo,
   CommentsDemo,
-  CustomStyleDemo,
+  VariantsDemo,
+  ColorSchemesDemo,
+  SizesDemo,
+  CustomIconsDemo,
+  ChatIntegrationDemo,
+  PropsTable,
 } from "@/components/demos/ai-feedback-collector-demos";
-import { TypeTable } from "fumadocs-ui/components/type-table";
 
 ## Installation
-
-Install the component using the CLI:
 
 ```bash
 npx shadcn@latest add "https://haberui.com/h/ai-feedback-collector.json"
 ```
 
-## Examples
+## Basic Usage
 
-<div className="not-prose space-y-8 my-6">
+<div className="not-prose my-6">
   <BasicDemo />
+</div>
+
+## Comments Support
+
+Enable users to provide text feedback for more detailed responses.
+
+<div className="not-prose my-6">
   <CommentsDemo />
-  <CustomStyleDemo />
+</div>
+
+## Customization
+
+### Style Variants
+
+<div className="not-prose my-6">
+  <VariantsDemo />
+</div>
+
+### Color Schemes
+
+<div className="not-prose my-6">
+  <ColorSchemesDemo />
+</div>
+
+### Size Variants
+
+<div className="not-prose my-6">
+  <SizesDemo />
+</div>
+
+### Custom Icons
+
+<div className="not-prose my-6">
+  <CustomIconsDemo />
+</div>
+
+## Integration Examples
+
+### Chat UI Integration
+
+<div className="not-prose my-6">
+  <ChatIntegrationDemo />
 </div>
 
 ## Props
 
-<TypeTable
-  type={{
-    onFeedback: {
-      description: "Function called when feedback is submitted",
-      type: '(feedback: { type: "positive" | "negative" | null; comment?: string }) => void | Promise<void>',
-    },
-    allowComments: {
-      description: "Allow users to add comments with their feedback",
-      type: "boolean",
-      default: "false",
-    },
-    promptText: {
-      description: "Text shown for the feedback prompt",
-      type: "string",
-      default: '"Was this response helpful?"',
-    },
-    thanksText: {
-      description: "Text shown after feedback is submitted",
-      type: "string",
-      default: '"Thanks for your feedback!"',
-    },
-    positiveIcon: {
-      description: "Custom icon for positive feedback (default: ThumbsUp)",
-      type: "React.ReactNode",
-    },
-    negativeIcon: {
-      description: "Custom icon for negative feedback (default: ThumbsDown)",
-      type: "React.ReactNode",
-    },
-    buttonClassName: {
-      description: "Custom classes for the buttons",
-      type: "string",
-    },
-    activeButtonClassName: {
-      description: "Custom classes for active (selected) buttons",
-      type: "string",
-    },
-  }}
-/>
+<PropsTable />
+
+## Usage Example
+
+```tsx
+import { AIFeedbackCollector } from "@/components/haber-ui/ai-feedback-collector";
+
+export function AIResponseWithFeedback() {
+  const handleFeedback = async (feedback) => {
+    console.log("User feedback:", feedback);
+
+    // Example: Send feedback to your API
+    await fetch("/api/feedback", {
+      method: "POST",
+      body: JSON.stringify(feedback),
+    });
+  };
+
+  return (
+    <div className="space-y-4">
+      <div className="p-4 rounded-lg bg-card">
+        <p>
+          The capital of France is Paris, which is located on the Seine River
+          and has a population of over 2 million people.
+        </p>
+      </div>
+
+      <AIFeedbackCollector
+        onFeedback={handleFeedback}
+        allowComments={true}
+        colorScheme="blue"
+        size="sm"
+      />
+    </div>
+  );
+}
+```
