@@ -6,7 +6,8 @@
       "description": "ThinkingState - A customizable, animated indicator for loading/thinking states with support for message cycling and completion states.",
       "registryDependencies": [],
       "dependencies": [
-        "class-variance-authority"
+        "class-variance-authority",
+        "motion"
       ],
       "devDependencies": []
     },
