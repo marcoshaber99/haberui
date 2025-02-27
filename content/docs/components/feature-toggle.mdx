@@ -1,13 +1,12 @@
 ---
 title: Feature Toggle
-description: A sleek, modern toggle button for enabling/disabling AI features with an elegant glowing effect.
+description: A toggle button for enabling/disabling AI features with a glowing effect.
 ---
 
 import {
   BasicDemo,
   ColorsDemo,
   SizesDemo,
-  VariantsDemo,
   GroupDemo,
   InputIntegrationDemo,
   PropsTable,
@@ -38,12 +37,6 @@ npx shadcn@latest add "https://haberui.com/h/feature-toggle.json"
 
 <div className="not-prose my-6">
   <SizesDemo />
-</div>
-
-### Style Variants
-
-<div className="not-prose my-6">
-  <VariantsDemo />
 </div>
 
 ### Toggle Group
@@ -142,14 +135,3 @@ export function AIChat() {
   );
 }
 ```
-
-## Styling Notes
-
-The glowing effect is achieved using a combination of:
-
-- Text color adjustments
-- Subtle background colors
-- Border glow effects
-- Shadow effects with low opacity for the neon glow
-
-The component automatically adapts these styles for both light and dark modes, ensuring it looks great in any context.
