@@ -39,7 +39,7 @@ const feedbackCollectorVariants = cva("space-y-3", {
 });
 
 const feedbackButtonVariants = cva(
-  "inline-flex items-center justify-center rounded-md p-2 transition-colors",
+  "inline-flex items-center justify-center rounded-md p-2 transition-colors cursor-pointer",
   {
     variants: {
       variant: {
@@ -268,7 +268,7 @@ export const AIFeedbackCollector = React.forwardRef<
         <div
           ref={ref}
           className={cn(
-            "flex items-center gap-2 text-green-500 transition-opacity duration-300",
+            "flex items-center gap-2 text-green-600 transition-opacity duration-300",
             size === "sm" ? "text-xs" : size === "lg" ? "text-base" : "text-sm",
             className
           )}
@@ -397,7 +397,7 @@ export const AIFeedbackCollector = React.forwardRef<
                 type="button"
                 onClick={handleCommentSubmit}
                 className={cn(
-                  "inline-flex h-9 items-center justify-center rounded-md bg-primary px-3 font-medium",
+                  "inline-flex h-9 items-center justify-center rounded-md bg-primary px-3 font-medium cursor-pointer",
                   "text-primary-foreground shadow-sm transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-1",
                   "disabled:pointer-events-none disabled:opacity-50",
                   size === "sm"

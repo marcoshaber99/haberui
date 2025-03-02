@@ -141,6 +141,7 @@ export const FeatureToggle = React.forwardRef<
             ? "border-muted/40 bg-background/40"
             : "border-muted/20 bg-transparent",
           active ? activeClassName : inactiveClassName,
+          "cursor-pointer",
           className
         )}
         aria-pressed={active}
