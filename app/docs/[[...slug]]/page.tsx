@@ -10,9 +10,13 @@ import defaultMdxComponents from "fumadocs-ui/mdx";
 import { TypeTable } from "fumadocs-ui/components/type-table";
 import { metadataImage } from "@/lib/metadata";
 
-export default async function Page(props: { params: { slug?: string[] } }) {
-  // Use empty array for root /docs path
-  const slugPath = props.params.slug || [];
+// Update the props type to match what FumaDocs expects
+export default async function Page(props: {
+  params: Promise<{ slug?: string[] }>;
+}) {
+  // Wait for the params promise to resolve
+  const params = await props.params;
+  const slugPath = params.slug || [];
   const page = source.getPage(slugPath);
 
   if (!page) notFound();
@@ -35,8 +39,12 @@ export default async function Page(props: { params: { slug?: string[] } }) {
   );
 }
 
-export async function generateMetadata(props: { params: { slug?: string[] } }) {
-  const slugPath = props.params.slug || [];
+// Update the metadata function to match the same pattern
+export async function generateMetadata(props: {
+  params: Promise<{ slug?: string[] }>;
+}) {
+  const params = await props.params;
+  const slugPath = params.slug || [];
   const page = source.getPage(slugPath);
 
   if (!page) notFound();
