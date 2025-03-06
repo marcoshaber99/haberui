@@ -147,7 +147,7 @@ export function ComponentShowcase() {
 
       <div className="flex justify-center mt-8">
         <Link
-          href="/docs"
+          href="/docs/components"
           className="inline-flex items-center text-sm text-primary hover:underline"
         >
           Explore all components
